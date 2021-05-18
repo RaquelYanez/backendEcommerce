@@ -1,8 +1,8 @@
 const User = require('../entities/user');
 const bcryptjs = require('bcryptjs');
 const { createToken} = require('../middlewares/jwt')
-
-const signIn = async (req,res) =>{
+//LOGIN de un user registrado
+const login = async (req,res) =>{
 
     const { email, password } = req.body;
 
@@ -29,6 +29,14 @@ const signIn = async (req,res) =>{
         
     }
    
+} 
+//LOGIN de un user registrado en GOOGLE
+const googleLogin = async (res) =>{
+    console.log('dentro del google')
+    res.status(200).json({
+        msg: 'No se ha podido conectar'
+    })
 }
 
-module.exports = {signIn}
+
+module.exports = {login,googleLogin}
