@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
-const { usuariosGet, userPut, signUp, usuariosDelete,
-       usuariosPatch,userProfile } = require('../controllers/usersController');
+const { usuariosGet, userPut, signUp, usuariosDelete, userProfile } = require('../controllers/usersController');
 
 const {rolIsInRoles, validateInputs, validateJWT} = require('../middlewares');
 
@@ -23,7 +22,7 @@ router.post('/', [
     //FALTA VALIDAR EDAD
     check('birthdate', 'Tienes que ser mayor de edad').isDate(),
    
-    check('rol').custom(isValidRole),
+    //check('rol').custom(isValidRole), si inicializo a USER_ROLE no me hace falta
     check('phone', 'Inserte un número de telefono correcto').isLength({ min: 9, max:9 })
     .matches(/^[0-9-]+$/),
    validateInputs,
@@ -52,6 +51,5 @@ router.delete('/:id',[
     validateInputs,
 ], usuariosDelete)
 
-//router.patch('/', usuariosPatch )
 
 module.exports = router;

@@ -7,8 +7,16 @@ class Server{
         // const app = express()
         this.app = express();
         this.port = process.env.PORT;
+        /*
         this.userPath = '/api/user';
         this.authPath = '/api/auth';
+        this.brandPath = '/api/'; */
+
+        this.paths = {
+            auth: '/api/auth',
+            brand: '/api/brand',
+            user: '/api/user',
+        }
         //Connect to bd
         this.conectarMongoDB();
         //Middelware funcion qe se inciia siempre en rutas de mi aplicacion
@@ -31,8 +39,9 @@ class Server{
      }
     routes(){ 
        //usamos un middleware para cargar las rutas orden alfab
-       this.app.use(this.authPath, require('../routes/auth'));
-       this.app.use(this.userPath, require('../routes/user'));
+       this.app.use(this.paths.auth, require('../routes/auth'));
+       this.app.use(this.paths.brand, require('../routes/brand'));
+       this.app.use(this.paths.user, require('../routes/user'));
     }
 
     listen(){
