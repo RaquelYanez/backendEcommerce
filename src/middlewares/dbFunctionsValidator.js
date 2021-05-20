@@ -3,7 +3,7 @@ const User = require('../entities/user');
 
 
 const isValidRole = async(rol = ' ' ) => {
-    console.log(rol)
+
     const isRol = await Role.findOne({rol})
     if(!isRol){
         throw new Error(`El rol ${rol} no existe`)

@@ -10,6 +10,8 @@ const router = Router();
 //primerEjemplo de paginacion para repsar en productos
 router.get('/', usuariosGet )
 
+//router.get('/', (req,res)=>{res.render('../public/login')})
+
 //REGISTRAR USUSARIOS
 router.post('/', [
     check('name', 'El nombre es obligatorio').not().isEmpty(),
@@ -22,7 +24,7 @@ router.post('/', [
     //FALTA VALIDAR EDAD
     check('birthdate', 'Tienes que ser mayor de edad').isDate(),
    
-    //check('rol').custom(isValidRole), si inicializo a USER_ROLE no me hace falta
+    check('rol').custom(isValidRole),
     check('phone', 'Inserte un número de telefono correcto').isLength({ min: 9, max:9 })
     .matches(/^[0-9-]+$/),
    validateInputs,

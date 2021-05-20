@@ -50,7 +50,6 @@ const signUp = async (req, res) =>{
     //Encriptar la contrasena "numero de veces que encripta entre 1-100 10 por defecto hash encriptar en una sola via"
     const salt = bcryptjs.genSaltSync(12);
     user.password = bcryptjs.hashSync(password, salt);
-    console.log(user)
     await user.save();
     res.status(201).json({user})
 }catch(err) {
