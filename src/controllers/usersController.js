@@ -11,7 +11,8 @@ const User = require('../entities/user');
 const usuariosGet = async (req,res ) =>{
     //marco el tamano de la paginacion
     const {limit = 5, offset = 0} = req.query;
-    const users =  await User.find()
+    //el .select('-password') hacemos que no nos muestre x campo, en un sitio en concreto
+    const users =  await User.find().select('-password')
         .skip(Number(offset)) //desde xnumber hasta el limitnumber localhost:8080/api/user?offset=5 -> del 5 al 10
         .limit(Number(limit));
     const totalUsers = await User.countDocuments();
@@ -62,9 +63,10 @@ const signUp = async (req, res) =>{
     const salt = bcryptjs.genSaltSync(12);
     user.password = bcryptjs.hashSync(password, salt);
     await user.save();
-    res.status(201).json({user})
+    res.status(201).json(user)
 }catch(err) {
- res.status(400).send({msg:'No se ha podido crear al usuario.',err})
+    console.log(err)
+    res.status(400).send({msg:'No se ha podido crear al usuario.'})
 }
 }
 

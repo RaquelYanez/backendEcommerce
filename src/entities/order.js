@@ -8,7 +8,7 @@ const OrderSchema = Schema({
         required :true,
         ref:'User'
     },
-    orderItems:[
+    orderProducts:[
         {
             name: {
                 type: String,

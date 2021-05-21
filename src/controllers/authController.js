@@ -32,7 +32,7 @@ const login = async (req,res) =>{
     }} 
    
 //@desc Los users con sesion iniciada pueden ver su perfil
-//@route GET /api/auth/profile
+//@route GET /api/auth/:id
 //@acces private
 const getUserProfile= async (req,res) =>{
 
@@ -50,7 +50,7 @@ const getUserProfile= async (req,res) =>{
         }
         //generar el JWT
         const token = await createToken(user.id);
-        res.json({msg:'login success', user, token})
+        res.json(user)
 
     } catch (err) {
         console.log(err)
@@ -62,7 +62,36 @@ const getUserProfile= async (req,res) =>{
    
 } 
 
+//@desc Los users con sesion iniciada pueden ver su perfil y eliminarlo despues
+//@route GET /api/auth/:id
+//@acces private
 
+//ESTOU AQUIIIIII
+const getUserProfileAdmin= async (req,res) =>{
+
+    const { email, password } = req.body;
+
+    try { //buscar por email tab
+        const user = await User.findOne( { email} );
+        if(user){
+        const matchPassword = bcryptjs.compareSync( password , user.password);
+        if( !matchPassword ){
+            return res.status(400).json({ msg: 'User o Password incorrecta -password-'});
+        }
+        }
+        //generar el JWT
+        const token = await createToken(user.id);
+        res.json(user)
+
+    } catch (err) {
+        console.log(err)
+        res.status(401).json({
+            msg: 'User o Password incorrecta'
+        })
+        
+    }
+   
+} 
 
 //LOGIN de un user registrado en GOOGLE
 const googleLogin = async (res) =>{
@@ -73,4 +102,4 @@ const googleLogin = async (res) =>{
 }
 
 
-module.exports = {login,googleLogin,getUserProfile}
+module.exports = {login,googleLogin,getUserProfile,getUserProfileAdmin}

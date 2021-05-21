@@ -34,7 +34,6 @@ class Server{
     }
     middlewares(){ //funcion que se ejecuta antes de llamar a un controlador o seguir con la ejecucion de mis peticiones
         //1 hacemos todas las validaciones necesarias y despues llamamos la peticion 
-    //     this.app.use( express.)
         //CORS
         this.app.use(cors());
         //Serializamos la informacion a JSON nos permite usar JSON en dataBody
