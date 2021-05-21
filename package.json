@@ -2,10 +2,15 @@
   "name": "ecommerce-restserver",
   "version": "1.0.0",
   "description": "Backend Raquel Yanez",
-  "main": "app.js",
+  "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "desarrollo": "nodemon app.js",
+    "start": "node app.js",
+    "data:import": "node seeder",
+    "data:destroy": "node seeder -d"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^9.0.1",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
     "express-validator": "^6.11.1",
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",

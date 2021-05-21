@@ -3,6 +3,10 @@ const bcryptjs = require('bcryptjs');
 //importamos el modelo para crear instancias
 const User = require('../entities/user');
 
+//@desc LISTAR USUSARIOS
+//@route GET /api/user
+//@acces public
+//primerEjemplo de paginacion para repsar en productos
 //para mostrar todos los usuarios paginados... seria como para la parte de ADMIN
 const usuariosGet = async (req,res ) =>{
     //marco el tamano de la paginacion
@@ -13,6 +17,20 @@ const usuariosGet = async (req,res ) =>{
     const totalUsers = await User.countDocuments();
     res.status(200).json({totalUsers,users})
 }
+
+//@desc OBTENER EL PERFIL DE USUARIO
+//@route GET /api/user
+//@acces public
+const userProfile = async (req,res ) =>{
+
+    const { id } = req.params
+    const user =  await User.findById(id)
+    res.status(200).json(user)
+}
+
+//@desc ACTUALIZAR EL PERFIL DE UN USUARIO
+//@route PUT /api/user
+//@acces public
 const userPut =  async (req, res) =>{
     
     const { id } = req.params
@@ -26,34 +44,39 @@ const userPut =  async (req, res) =>{
 
     res.json(userUpdated)
 }
+//@desc REGISTRAR USUSARIOS
+//@route POST /api/user
+//@acces public
 const signUp = async (req, res) =>{
-   
-    const {name, lastName, email,googleEmail, password, rol, birthdate, phone} = req.body;
+   try{
+    const {name, lastName, email, password, rol} = req.body;
     //creo la instancia
     const user =  new User({
-        name, lastName, email,
-        googleEmail,password,
+        name,
+        lastName,
+        email,
+        password,
         rol: rol || 'USER_ROLE',
-        birthdate,
-        phone 
         });
-        console.log(password)
     //Encriptar la contrasena "numero de veces que encripta entre 1-100 10 por defecto hash encriptar en una sola via"
     const salt = bcryptjs.genSaltSync(12);
     user.password = bcryptjs.hashSync(password, salt);
-    console.log(user)
     await user.save();
-
-    res.status(200).json({user})
+    res.status(201).json({user})
+}catch(err) {
+ res.status(400).send({msg:'No se ha podido crear al usuario.',err})
 }
+}
+
+//@desc ACTUALIZAR EL PERFIL DE UN USUARIO
+//@route DELETE /api/user
+//@acces private
 const usuariosDelete = async (req, res) =>{
     //buscamos por id al usuario con otro usuario, si eese usuario tiene un token activo, nos deja eliminar al usuaio que bbuscamos por id
-    
-    const { _id } = req.params
-    const user =  await User.findByIdAndDelete(_id);
-    const autUser = req.user;
-    
-    res.json({user, autUser})
+    const { id } = req.params
+    const user = await User.findByIdAndDelete(id); //usuario que vamos a borrar
+    console.log(user)
+    res.status(200).json({msg:`el user ha sido eliminado`})
 }
 const usuariosPatch =  (req, res = response) =>{
     res.json({msg: 'patchApi-controler'})
@@ -63,6 +86,7 @@ module.exports = {
     userPut,
     signUp,
     usuariosDelete,
-    usuariosPatch
+    usuariosPatch,
+    userProfile
 
 }
