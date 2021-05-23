@@ -36,6 +36,7 @@ const userPut =  async (req, res) =>{
     
     const { id } = req.params
     const { _id, password,googleEmail, email, ...newUserbody} = req.body;
+   // const { _id, password,googleEmail, email, ...newUserbody} = req.body;
 
     if(password){
         const salt = bcryptjs.genSaltSync(12);
@@ -63,7 +64,7 @@ const signUp = async (req, res) =>{
     const salt = bcryptjs.genSaltSync(12);
     user.password = bcryptjs.hashSync(password, salt);
     await user.save();
-    res.status(201).json(user)
+    res.status(201).json({msg:'Se ha creado el usuario correctamente.',user})
 }catch(err) {
     console.log(err)
     res.status(400).send({msg:'No se ha podido crear al usuario.'})

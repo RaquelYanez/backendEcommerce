@@ -18,8 +18,10 @@ class Server{
         this.paths = {
             auth: '/api/auth',
             brand: '/api/brand',
+            product: '/api/product',
+            order:'/api/order',
             user: '/api/user',
-            product: '/api/product'
+            
         }
         //Connect to bd
         this.conectarMongoDB();
@@ -46,8 +48,10 @@ class Server{
        //usamos un middleware para cargar las rutas orden alfab
        this.app.use(this.paths.auth, require('../routes/auth'));
        this.app.use(this.paths.brand, require('../routes/brand'));
-       this.app.use(this.paths.user, require('../routes/user'));
+       this.app.use(this.paths.order, require('../routes/order'));
        this.app.use(this.paths.product, require('../routes/product'));
+       this.app.use(this.paths.user, require('../routes/user'));
+       
     }
 
     listen(){
