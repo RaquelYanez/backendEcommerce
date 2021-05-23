@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
-const {addOrderProducts} = require('../controllers/orderController');
+const {addOrderProducts,getOrderProductsById} = require('../controllers/orderController');
 const {validateInputs,validateJWT} = require('../middlewares');
 
 
@@ -11,4 +11,8 @@ router.post('/',[
     validateJWT
 ], addOrderProducts );
 
+router.get('/:id',[
+    validateInputs,
+    validateJWT
+], getOrderProductsById);
 module.exports = router;

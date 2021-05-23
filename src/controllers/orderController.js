@@ -40,7 +40,7 @@ const getOrderProductsById =  async (req,res)=>{
     //con el populate obtenemos el usuario y por otro lado el nombre 
     //y email que es lo que queremos que ser vea
     try {
-       const order = await Oder.findById(id).populate('user', 'name email');
+       const order = await Order.findById(id).populate('user', 'name email').populate('orderProducts.product', 'name');
         if(order){
             res.json(order);
         } 

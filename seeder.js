@@ -5,6 +5,7 @@ const users =  require('./src/data/users')
 const brands =  require('./src/data/brands')
 const products =  require('./src/data/products')
 const roles =  require('./src/data/roles')
+const orders = require('./src/data/orders')
 
 //importo model
 const User = require('./src/entities/user')
@@ -18,16 +19,18 @@ dbConnection();
 
 const importData = async () =>{
     try {
-        await Order.deleteMany();
+       // await Order.deleteMany();
         await Product.deleteMany();
         await User.deleteMany();
         await Brand.deleteMany();
         await Role.deleteMany();
+        await Order.deleteMany();
 
         await Role.insertMany(roles);
         //como tengo relacinado el usuario a un producto, el ADMIN de la posicion 0 es el que va a generar estos obejtos 
         const createdUsers = await User.insertMany(users);
         const admin = createdUsers[0]._id;
+        const user = createdUsers[1]._id;
 
         //relaciona brand a producto
         const createdBrands = await Brand.insertMany(brands);
@@ -37,9 +40,20 @@ const importData = async () =>{
         const createdProducts = products.map(product=>{
             return{...product, user: admin, brand:brand}
         })
-        await Product.insertMany(createdProducts);
         
+        //relacionar el producto a order en el orderproduct 
+        const product = await Product.insertMany(createdProducts);
+        
+      /*  const oneProduct = product[0]._id;
 
+        oneProduct = orderProducts[0].product 
+        const addProductsToOrder = orders.map(order=>{
+            return{
+                ...order, user: user, product : oneProduct}
+        })
+
+        await Order.insertMany(addProductsToOrder);
+*/
         console.log('Data imported')
         process.exit()
     } catch (error) {
@@ -50,7 +64,7 @@ const importData = async () =>{
 
 const destroyData = async () =>{
     try {
-        await Order.deleteMany();
+     //   await Order.deleteMany();
         await Product.deleteMany();
         await User.deleteMany();
         await Brand.deleteMany();
