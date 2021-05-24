@@ -21,7 +21,7 @@ const usuariosGet = async (req,res ) =>{
 
 //@desc OBTENER EL PERFIL DE USUARIO
 //@route GET /api/user
-//@acces public
+//@acces private
 const userProfile = async (req,res ) =>{
 
     const { id } = req.params
@@ -78,18 +78,14 @@ const usuariosDelete = async (req, res) =>{
     //buscamos por id al usuario con otro usuario, si eese usuario tiene un token activo, nos deja eliminar al usuaio que bbuscamos por id
     const { id } = req.params
     const user = await User.findByIdAndDelete(id); //usuario que vamos a borrar
-    console.log(user)
-    res.status(200).json({msg:`el user ha sido eliminado`})
+    res.status(200).json({msg:`el user ${user} ha sido eliminado`})
 }
-const usuariosPatch =  (req, res = response) =>{
-    res.json({msg: 'patchApi-controler'})
-}
+
 module.exports = {
     usuariosGet,
     userPut,
     signUp,
     usuariosDelete,
-    usuariosPatch,
     userProfile
 
 }

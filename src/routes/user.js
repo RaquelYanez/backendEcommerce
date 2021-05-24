@@ -20,11 +20,13 @@ router.post('/', [
     check('password', 'La contraseña necesita una minúscula, mayúscula, número y un caracter especial').not().isEmpty()
         .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/),
    validateInputs,
-    
 ],signUp);
 
 
-router.get('/:id', userProfile );
+router.get('/:id',[
+    validateJWT,
+    check('id','No es un ID de Mongo').isMongoId(),
+    ], userProfile );
 
 router.put('/:id',[
     check('id','No es un ID de Mongo').isMongoId(),
