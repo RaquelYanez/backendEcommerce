@@ -22,9 +22,10 @@ router.get('/:id',[
     rolIsInRoles('ADMIN_ROLE')],
     getUserProfileAdmin);
 
-//INICIAR SESION CON GOOGLE
+//INICIAR SESION CON GOOGLE hacemos obligatorio el idtoken de oogle
 router.post('/google',[
     check('id_token', 'Token de google necesario').not().isEmpty(),
-    validateInputs],
+    validateInputs
+],
     googleLogin );
 module.exports = router;
