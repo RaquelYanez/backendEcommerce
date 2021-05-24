@@ -34,15 +34,25 @@ const ProductSchema = Schema({
         type: String, 
         required: true,
     },
-    brand: { 
+    brand: { //puma
         type: Schema.Types.ObjectId,
         required :true,
         ref:'Brand'
     },
-    size:{ //ANADE TALLA S M L 
-        type: String, 
-        required: true,
-    },
+    sizeProduct:[
+        {
+            size:{
+                type: Schema.Types.ObjectId,
+                required :true,
+                ref:'Size'     
+                },
+            stock:{
+                type: Number, 
+                required: false,
+                default:0
+                }
+        }
+    ],
     descriptionShort:{ 
         type: String, 
         required: true,
@@ -50,10 +60,11 @@ const ProductSchema = Schema({
     descriptionLong:{ 
         type: String
     },
-    category:{ //WOMAN MAN KID
-        type: String,
-        required: true
-    }, 
+    category:{  //kids
+        type: Schema.Types.ObjectId,
+        required :true,
+        ref:'Category'
+    },
     //para las reviews
     ratingProduct:{ 
         type: Number, 

@@ -18,9 +18,13 @@ class Server{
         this.paths = {
             auth: '/api/auth',
             brand: '/api/brand',
-            product: '/api/product',
+            category: '/api/category',
             order:'/api/order',
+            product: '/api/product',
+            size: '/api/size',
             user: '/api/user',
+            
+
             
         }
         //Connect to bd
@@ -52,7 +56,9 @@ class Server{
        this.app.use(this.paths.brand, require('../routes/brand'));
        this.app.use(this.paths.order, require('../routes/order'));
        this.app.use(this.paths.product, require('../routes/product'));
+       this.app.use(this.paths.size, require('../routes/size'));
        this.app.use(this.paths.user, require('../routes/user'));
+       this.app.use(this.paths.category, require('../routes/category'));
 
 
        //en el front necesitamos un script especifico

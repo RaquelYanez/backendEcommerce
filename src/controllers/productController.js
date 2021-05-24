@@ -5,7 +5,10 @@ const Product  = require('../entities/product');
 //@acces public
 const getProducts =  async (req,res)=>{
     try {
-        const products = await Product.find({})
+        const products = await Product.find({}).populate('user', 'name')
+        .populate('category', 'categoryName')
+        .populate('brand', 'brandName')
+        .populate('size','sizeProduct.sizeName');
         res.json(products)   
     } catch (error) {
         res.status(500).json({msg:' Error en la busqueda'})  
@@ -18,13 +21,16 @@ const getProducts =  async (req,res)=>{
 const getOneProduct = async (req,res)=>{
     const {id} = req.params
     try {
-        const product = await Product.findById(id)
+        const product = await Product.findById(id).populate('user', 'name')
+        .populate('category', 'categoryName')
+        .populate('brand', 'brandName')
+        .populate('sizeProduct.size');
         if(product){
           res.json(product) 
         }  
     } catch (err) {
 
-        res.status(404).json({msg:`Producto con id: ${id} encontrado`})  
+        res.status(404).json({msg:`Producto con id: ${id} no encontrado`})  
     }
     
 };

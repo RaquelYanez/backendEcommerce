@@ -1,7 +1,7 @@
 const Brand  = require('../entities/brand');
 
 //@desc Anadir una nueva marca
-//@route POST /api/order
+//@route POST /api/brand
 //@acces private ADMIN
 const addBrand = async (req,res)=>{
     const {brandName}   =  req.body;
