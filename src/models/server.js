@@ -43,6 +43,8 @@ class Server{
         //errors
        // this.app.use(notFound)
         //this.app.use(errorHandler)
+        //direccion public para el log
+        this.app.use(express.static('public'));
      }
     routes(){ 
        //usamos un middleware para cargar las rutas orden alfab
@@ -51,7 +53,24 @@ class Server{
        this.app.use(this.paths.order, require('../routes/order'));
        this.app.use(this.paths.product, require('../routes/product'));
        this.app.use(this.paths.user, require('../routes/user'));
-       
+
+
+       //en el front necesitamos un script especifico
+       // <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
+       /** addPaypal = async() =>{ const {data: cientId}= await axios.get('api/config/paypal')
+        * const script = document.createElement('script');
+        * script.type = 'text/javascript';
+        * script.src = `https://www.paypal.com/sdk/js?client-id=${cientId}`
+        * script.async = true;
+        * } 
+        * EL boton de paypal en react es con : npm i react-paypal-button-v2
+        * 
+        *el usuario por defecto es 
+        Email ID: sb-tgyj46289373@personal.example.com
+        System Generated Password: O*5!E%Fw
+        Cuando esto suceda, tenemos que cambiar el estado de pago, a isPaid:true, es el endPoint de put updateStatePaid
+        * */
+       this.app.get('api/config/paypal',(req,res) => res.send(process.env.PAYPAL_CLIENTID))
     }
 
     listen(){

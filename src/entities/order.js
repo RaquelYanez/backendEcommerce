@@ -73,6 +73,20 @@ const OrderSchema = Schema({
     deliveredDate: {
         type: Date,
     },
+
+
+    //PARTE DE PRUEBAS
+    payStatus :{
+        id: {
+            type: String,
+            },
+        status:{
+            type: String,
+            }, //si es ok que ponga COMPLETADO o algo asi
+        emailPaypal:{
+            type: String,
+            },
+    }
  
 }); 
 

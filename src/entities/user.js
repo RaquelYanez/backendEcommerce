@@ -17,12 +17,19 @@ const UserSchema = Schema({
         lowercase: true,
         unique: true,
     },
+    googleEmail: { 
+        type: Boolean, 
+        default: false,
+    },
     password: { 
         type: String,
         required: [true, 'Campo password obligatorio'], 
     },
-    rol: {type: String,
-        required: true
+    rol: {
+        type: String,
+        required: true,
+        default: 'USER_ROLE',
+        emun:['ADMIN_ROLE', 'USER_ROLE']
     }
   
  
