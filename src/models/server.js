@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const morgan = require('morgan');
 const { dbConnection } = require('../database/config');
 //const {notFound,errorHandler} =  require('../middlewares/error');
 
@@ -44,6 +45,10 @@ class Server{
         this.app.use(cors());
         //Serializamos la informacion a JSON nos permite usar JSON en dataBody
         this.app.use(express.json());
+        if(process.env.NODE_ENV === 'desarollo'){
+            this.app.use(morgan('dev'));   
+        }
+        
         //errors
        // this.app.use(notFound)
         //this.app.use(errorHandler)

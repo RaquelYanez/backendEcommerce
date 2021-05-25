@@ -4,7 +4,7 @@ const { usuariosGet, userPut, signUp, usuariosDelete, userProfile } = require('.
 
 const {rolIsInRoles, validateInputs, validateJWT} = require('../middlewares');
 
-const {isValidRole,ifEmailExists,userExistsById} = require('../middlewares/dbFunctionsValidator');
+const {ifEmailExists,userExistsById} = require('../middlewares/dbFunctionsValidator');
 
 const router = Router();
 

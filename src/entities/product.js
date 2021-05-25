@@ -12,6 +12,11 @@ const reviewSchema = Schema ({
     comment:{ 
         type:String,
         required:true},
+    user:{ 
+        type: Schema.Types.ObjectId,
+        required :true,
+        ref:'User'
+        },
 
 })
 
@@ -82,13 +87,7 @@ const ProductSchema = Schema({
         type: Number, 
         required: false,
         default:0
-    },
-    stock:{
-        type: Number, 
-        required: false,
-        default:0
     }
- 
 }); 
 
 
