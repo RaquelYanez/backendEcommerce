@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const {check } = require('express-validator');
-const {getProducts,getOneProduct,createOneProduct,updateProduct,createReviewToOneProduct} = require('../controllers/productController');
+const {getProducts,getOneProduct,createOneProduct,updateProduct,createReviewToOneProduct,searchProduct} = require('../controllers/productController');
 
 const {isAdmin,validateInputs, validateJWT} = require('../middlewares');
 
@@ -21,6 +21,7 @@ router.get('/',getProducts);
 router.get('/:id',[
     check('id','No es un ID de Mongo').isMongoId(),
 ],getOneProduct);
+
 
 //privada token ADMIN
 router.post('/',[

@@ -12,10 +12,12 @@ const usuariosGet = async (req,res ) =>{
     //marco el tamano de la paginacion
     const {limit = 5, offset = 0} = req.query;
     //el .select('-password') hacemos que no nos muestre x campo, en un sitio en concreto
-    const users =  await User.find().select('-password')
+    const [totalUsers, users] = await Promise.all([
+        User.countDocuments(),
+        User.find().select('-password')
         .skip(Number(offset)) //desde xnumber hasta el limitnumber localhost:8080/api/user?offset=5 -> del 5 al 10
-        .limit(Number(limit));
-    const totalUsers = await User.countDocuments();
+        .limit(Number(limit))
+    ])
     res.status(200).json({totalUsers,users})
 }
 

@@ -22,7 +22,6 @@ router.post('/', [
    validateInputs,
 ],signUp);
 
-
 router.get('/:id',[
     validateJWT,
     check('id','No es un ID de Mongo').isMongoId(),

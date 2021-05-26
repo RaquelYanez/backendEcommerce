@@ -1,15 +1,25 @@
 const Product  = require('../entities/product');
 
+//OBTENEMOS TODOS LOS PRODUCTOS FALTA PAGINAR GUAY en front
+
 //@desc coge todos los productos
 //@route GET /api/product
 //@acces public
 const getProducts =  async (req,res)=>{
+    const {limit = 5, offset = 0} = req.query;
     try {
-        const products = await Product.find({}).populate('user', 'name').select('-user')
-        .populate('category')
-        .populate('brand')
-        .populate('sizeProduct.size');
-        res.json(products)   
+        //Como tenemos dos promesas dependientes, lo que hacemos es un promise.all ganamos tiempo modo "hilos de js" ya se q no existen 
+        const [totalProducts, products] = await Promise.all([ //desestructuro el array en 2
+            Product.countDocuments(),
+            Product.find({}).populate('user', 'name').select('-user')
+            .populate('category')
+            .populate('brand')
+            .populate('sizeProduct.size')
+            .skip(Number(offset))
+            .limit(Number(limit))
+        ]);
+        res.json({totalProducts, products})   //cambio el tiempo de respuesta de 580 a 380ms
+        
     } catch (error) {
         res.status(500).json({msg:' Error en la busqueda'})  
     }
@@ -24,7 +34,8 @@ const getOneProduct = async (req,res)=>{
         const product = await Product.findById(id).populate('user', 'name').select('-user')
         .populate('category')
         .populate('brand')
-        .populate('sizeProduct.size');
+        .populate('sizeProduct.size')
+        .populate('reviews.user', 'name');
         if(product){
           res.json(product) 
         }  
@@ -102,8 +113,6 @@ const createReviewToOneProduct = async (req,res)=>{
     const userId = req.user._id
     const {rating, comment} = req.body;
     try {
-        
-    
     const product = await Product.findById(id);
     if(product){
         //primero comprobamos si hay algun comentario del usuario
@@ -133,14 +142,31 @@ const createReviewToOneProduct = async (req,res)=>{
     }
     res.status(204).json({msg:`No se encuentra el producto ${id}`})
     } catch (error) {
-        
+        res.status(500).json({msg:'La valoracion de este producto ha fallado.'})
     }
     
+};
+
+//@desc Buscador de productos por ?keyword
+//@route GET /api/product?keyword=potato
+//@acces private 
+const searchProduct = async (req,res)=>{
+   //regex: nos es para que no busque literalmente, sino que busque campos parecidos modo cam de camiseta, camisa...
+  //i es para que no sea key INsensitive
+    const keyword = req.query.keyword ? {
+        name: {
+            $regex :req.query.keyword,
+            $options: 'i'
+        }
+    }: {} //si no hay resutados nos devuelve un objeto vacio
+    const products = await Product.find({...keyword })
+    res.json({products})
 };
 module.exports = {
     getProducts,
     getOneProduct,
     createOneProduct,
     updateProduct,
-    createReviewToOneProduct
+    createReviewToOneProduct,
+    searchProduct
 }

@@ -11,17 +11,14 @@ class Server{
         this.port = process.env.PORT || 8080;
         this.development = process.env.NODE_ENV;
         this.host = process.env.HOST || '0.0.0.0';
-        /*
-        this.userPath = '/api/user';
-        this.authPath = '/api/auth';
-        this.brandPath = '/api/'; */
-
+        
         this.paths = {
             auth: '/api/auth',
             brand: '/api/brand',
             category: '/api/category',
             order:'/api/order',
             product: '/api/product',
+            search: '/api/search',
             size: '/api/size',
             user: '/api/user',
             
@@ -61,6 +58,7 @@ class Server{
        this.app.use(this.paths.brand, require('../routes/brand'));
        this.app.use(this.paths.order, require('../routes/order'));
        this.app.use(this.paths.product, require('../routes/product'));
+       this.app.use(this.paths.search, require('../routes/search'));
        this.app.use(this.paths.size, require('../routes/size'));
        this.app.use(this.paths.user, require('../routes/user'));
        this.app.use(this.paths.category, require('../routes/category'));
