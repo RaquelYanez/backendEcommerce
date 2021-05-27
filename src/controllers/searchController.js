@@ -7,6 +7,9 @@ const collectionBD = [
 ]
 
 
+//@desc filtrar por categoria y marca
+//@route GET /:collection/:keyword/:filter
+//@acces public
 const searchByFilter= async (req,res) =>{
     const {collection,keyword,filter} = req.params;
     const regexKeyword = new RegExp (keyword, 'i')
@@ -17,21 +20,79 @@ const searchByFilter= async (req,res) =>{
         }
         const category = await Category.findOne({categoryName:regexKeyword}).populate('category')
         if(category.categoryName === keyword.toUpperCase()){
-           // console.log(category.categoryName,keyword.toUpperCase())
             const brand = await Brand.findOne({brandName:regexFilter})
             if(brand.brandName === filter.toUpperCase()){
-                //console.log(brand.brandName,filter.toUpperCase())
-                const product = await Product.find({$and:[{category : category._id},{brand : brand._id}]}).populate('category').populate('brand')
-                res.json(product)
+                const product = await Product.find({$and:[{category : category._id},{brand : brand._id}]})
+                    .populate('category')
+                    .populate('brand')
+                    .select('-user')
+                const total = await Product.countDocuments({$and:[{category : category._id},{brand : brand._id}]})
+                res.json({total,product}) 
             }
-            res.status(404).json({msg:'No existe esa marca'});
         }
     }catch (error) {
-        res.status(404).json({msg:`No hay productos en la coleccion ${collection} con categoria ${keyword}`});
+        res.status(404).json({msg:`No hay productos de con ${keyword} con marca ${filter}`});
+    }
+
+}
+
+//con la paginacion AQUI LUEGO HAY QUE PASAR EL REQ QUERY
+//@desc filtrar por categoria y nombre producto paginacion 
+//@route GET /:category?keyword
+//@acces public
+const searchByName= async (req,res) =>{
+    const {category} = req.params;
+    const {keyword} = req.params;
+    const regexCategory = new RegExp (category, 'i')
+    const regexKeyword = new RegExp (keyword, 'i')
+    const pageSize = 5 //cuantos por pagina
+    const page = Number(req.query.pageNumber) || 1
+    try {
+        const categorySelected = await Category.findOne({categoryName:regexCategory}).populate('category')
+        if(categorySelected.categoryName === category.toUpperCase()){      
+           const product = await Product.find({ //para contar las respuestas lo mismo pero con el countDocuments
+                $or: [{name:regexKeyword}, {descriptionShort:regexKeyword}, {color:regexKeyword}],
+                $and:[{category : categorySelected._id}],
+              
+           }).populate('category').select('-user').limit(pageSize).skip(pageSize * (page-1))
+        
+        const total = await Product.countDocuments({ 
+            $or: [{name:regexKeyword}, {descriptionShort:regexKeyword}, {color:regexKeyword}],
+            $and:[{category : categorySelected._id}],
+          
+       }).populate('category').select('-user')
+           res.status(200).json({ total,product, page, pages: Math.ceil(total / pageSize)})
+        }
+        
+    }catch (error) {
+        res.status(404).json({msg:`No hay productos de con ${regexKeyword}`});
     }
 
 }
 
 
-module.exports = {searchByFilter}
+//@desc filtrar por todos los productos de la pagina
+//@route GET /:keyword
+//@acces public
+const searchAllProduct= async (req,res) =>{
+   //regex: nos es para que no busque literalmente, sino que busque campos parecidos modo cam de camiseta, camisa...
+  //i es para que no sea key INsensitive
+    const pageSize = 5 //cuantos por pagina
+    const page = Number(req.query.pageNumber) || 1
+
+    const {keyword} = req.query ?{
+        name:{
+            $regex:req.query.keyword,
+            $options: 'i',
+        },
+    } : {}
+    const count = await Product.countDocuments({...keyword})
+    const product = await Product.find({...keyword}).limit(pageSize).skip(pageSize * (page-1))
+    
+    res.json({product, page, pages: Math.ceil(count / pageSize)})
+    //obtenemos la pagina que va a ser el recuento de paginas dividido por el tamano de la pagina
+}
+
+
+module.exports = {searchByFilter,searchByName,searchAllProduct}
 

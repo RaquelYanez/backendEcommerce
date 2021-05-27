@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
-const { usuariosGet, userPut, signUp, usuariosDelete, userProfile } = require('../controllers/usersController');
+const { mailer,usuariosGet, userPut, signUp, usuariosDelete, userProfile } = require('../controllers/usersController');
 
 const {rolIsInRoles, validateInputs, validateJWT} = require('../middlewares');
 
@@ -50,5 +50,6 @@ router.delete('/:id',[
     validateInputs,
 ], usuariosDelete)
 
-
+//para el email usamos ethereal
+router.post('/send-email',mailer)
 module.exports = router;

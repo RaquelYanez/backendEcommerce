@@ -2,7 +2,50 @@
 const bcryptjs = require('bcryptjs');
 //importamos el modelo para crear instancias
 const User = require('../entities/user');
+//nodemailer
+const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport');
 
+const mailer = async (req,res ) =>{
+const {name, lastName, email, password, rol} = req.body;
+    //creo la instancia
+    const user =  new User({
+        name,
+        lastName,
+        email,
+        password,
+        rol: rol || 'USER_ROLE',
+        googleEmail: true
+        });
+    //Encriptar la contrasena "numero de veces que encripta entre 1-100 10 por defecto hash encriptar en una sola via"
+    const salt = bcryptjs.genSaltSync(12);
+    user.password = bcryptjs.hashSync(password, salt);
+    await user.save();
+
+const transporter = nodemailer.createTransport(smtpTransport({
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  auth: {
+    user: 'jositoRaquelTfc@gmail.com',
+    pass: 'ilovetuenti1'
+  }
+}));
+
+const mailOptions = {
+  from: 'jositoRaquelTfc@gmail.com',
+  to: email,
+  subject: 'Sending Email using Node.js[nodemailer]',
+  text: 'That was easy!'
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+}); 
+} 
 //@desc LISTAR USUSARIOS
 //@route GET /api/user
 //@acces public
@@ -84,6 +127,7 @@ const usuariosDelete = async (req, res) =>{
 }
 
 module.exports = {
+    mailer,
     usuariosGet,
     userPut,
     signUp,

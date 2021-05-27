@@ -147,26 +147,27 @@ const createReviewToOneProduct = async (req,res)=>{
     
 };
 
-//@desc Buscador de productos por ?keyword
-//@route GET /api/product?keyword=potato
-//@acces private 
-const searchProduct = async (req,res)=>{
-   //regex: nos es para que no busque literalmente, sino que busque campos parecidos modo cam de camiseta, camisa...
-  //i es para que no sea key INsensitive
-    const keyword = req.query.keyword ? {
-        name: {
-            $regex :req.query.keyword,
-            $options: 'i'
-        }
-    }: {} //si no hay resutados nos devuelve un objeto vacio
-    const products = await Product.find({...keyword })
-    res.json({products})
-};
+//@desc Hacer el carousel con los detacados
+//@route GET /api/product/top
+//@acces public 
+const getTopProduct = async (res) => {
+    //sort es para ordenar ,indicaremos el campo o los campos por los cuales queremos ordenar la consulta
+    try {
+        const product = await Product.find({}).sort({rating:-1}).limit(6);
+        res.json(products)   
+    } catch (error) {
+        res.status(500).json({msg:'Error en los detacados.'})
+    }
+    
+}
+
+
 module.exports = {
     getProducts,
     getOneProduct,
     createOneProduct,
     updateProduct,
     createReviewToOneProduct,
-    searchProduct
+    getTopProduct,
+   
 }
