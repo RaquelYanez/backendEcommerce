@@ -62,7 +62,7 @@ class Server{
        this.app.use(this.paths.category, require('../routes/category'));
 
 
-       //en el front necesitamos un script especifico
+       //en el front necesitamos un script especific
        // <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
        /** addPaypal = async() =>{ const {data: cientId}= await axios.get('api/config/paypal')
         * const script = document.createElement('script');
