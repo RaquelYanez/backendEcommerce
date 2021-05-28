@@ -63,59 +63,8 @@ const usersGet = async (req,res ) =>{
     res.status(200).json({totalUsers,users})
 }
 
-//@desc OBTENER EL PERFIL DE USUARIO
-//@route GET /api/user
-//@acces private
-const userProfile = async (req,res ) =>{
 
-    const { id } = req.params
-    const user =  await User.findById(id)
-    res.status(200).json(user)
-}
-
-//@desc ACTUALIZAR EL PERFIL DE UN USUARIO
-//@route PUT /api/user
-//@acces public
-const userPut =  async (req, res) =>{
-    
-    const { id } = req.params
-    const { _id, password,googleEmail, email, ...newUserbody} = req.body;
-   // const { _id, password,googleEmail, email, ...newUserbody} = req.body;
-
-    if(password){
-        const salt = bcryptjs.genSaltSync(12);
-        newUserbody.password = bcryptjs.hashSync(password, salt);  
-    }
-    const userUpdated = await User.findByIdAndUpdate( id, newUserbody);
-
-    res.json(userUpdated)
-}
-//@desc REGISTRAR USUSARIOS
-//@route POST /api/user
-//@acces public
-const signUp = async (req, res) =>{
-   try{
-    const {name, lastName, email, password, rol} = req.body;
-    //creo la instancia
-    const user =  new User({
-        name,
-        lastName,
-        email,
-        password,
-        rol: rol || 'USER_ROLE',
-        });
-    //Encriptar la contrasena "numero de veces que encripta entre 1-100 10 por defecto hash encriptar en una sola via"
-    const salt = bcryptjs.genSaltSync(12);
-    user.password = bcryptjs.hashSync(password, salt);
-    await user.save();
-    res.status(201).json({msg:'Se ha creado el usuario correctamente.',user})
-}catch(err) {
-    console.log(err)
-    res.status(400).send({msg:'No se ha podido crear al usuario.'})
-}
-}
-
-//@desc ACTUALIZAR EL PERFIL DE UN USUARIO
+//@desc eliminar el perfil de un usuario 
 //@route DELETE /api/user
 //@acces private
 const usuariosDelete = async (req, res) =>{
@@ -128,9 +77,6 @@ const usuariosDelete = async (req, res) =>{
 module.exports = {
     mailer,
     usersGet,
-    userPut,
-    signUp,
     usuariosDelete,
-    userProfile
 
 }

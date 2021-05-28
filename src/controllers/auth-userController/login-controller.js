@@ -1,5 +1,6 @@
 const { createToken} = require('../../middlewares/jwt');
 const {login} = require('../../uc');
+
 //@desc PERMITE A LOS USUARIOS INICIAR SESION
 //@route POST /api/auth
 //@acces public
@@ -14,4 +15,4 @@ async function execute(req,res){
         res.status(401).json({msg: 'User o Password incorrecta'})
     }} 
 
-    module.exports = execute
+    module.exports = execute 

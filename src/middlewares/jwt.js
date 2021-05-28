@@ -7,8 +7,7 @@ const createToken  = (userId) => {
         //playload era el que mostramos con el JWT mostrariamos solo el idUser
         const payload = { userId };
         const secretOrPrivateKey = process.env.SECRET_TOKEN
-
-        jwt.sign( payload, secretOrPrivateKey, { 
+      jwt.sign( payload, secretOrPrivateKey, { 
             expiresIn: '1h'
         }, (err, token) =>{ //callback
             if(err){
@@ -17,7 +16,7 @@ const createToken  = (userId) => {
             }else{
              res(token);  
             }
-        })      
+        }) 
     })
 }
 

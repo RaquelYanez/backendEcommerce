@@ -1,4 +1,4 @@
-const User = require('../entities/user');
+const User = require('../../entities/user');
 const bcryptjs = require('bcryptjs');
 
 async function execute(email,password){

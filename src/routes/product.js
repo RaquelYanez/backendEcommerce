@@ -5,16 +5,6 @@ const {getTopProduct,getProducts,getOneProduct,createOneProduct,updateProduct,cr
 
 const {isAdmin,validateInputs, validateJWT} = require('../middlewares');
 
-
-/*si istalamos el i express-async-hander no tengo que hacer el trycath en cada uno de ellos
-
-//get all products
-const asyncHandler = require('express-async-handler');
-router.get('/', asyncHandler(async (req,res)=>{
-    const products = await Product.find({})
-    res.json(products)
-}));
-*/
 //publica
 router.get('/',getProducts);
 

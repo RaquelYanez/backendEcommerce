@@ -1,10 +1,10 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
-const {getUserProfile,googleLogin,getUserProfileAdmin} = require('../controllers/authController');
+const {getUserProfileAdmin,googleLogin} = require('../controllers/authController');
 const {validateInputs,validateJWT,rolIsInRoles,googleValidator} = require('../middlewares');
-//login,
-const {loginController} = require('../controllers/authController/index')
 
+const {loginController,getUserProfileController,googleLoginController} = require('../controllers/auth-userController/index')
+//googleLogin
 const router = Router();
 
 router.post('/login',[
@@ -13,21 +13,25 @@ router.post('/login',[
     validateInputs
 ], loginController );
 
-
-router.get('/:id',[
+router.get('/:id/profile',[
+    check('id','No es un ID de Mongo').isMongoId(),
     validateJWT],
-    getUserProfile );
+    getUserProfileController ); 
 
-router.get('/:id',[
-    validateJWT,
-    rolIsInRoles('ADMIN_ROLE')],
-    getUserProfileAdmin);
-
-//INICIAR SESION CON GOOGLE hacemos obligatorio el idtoken de oogle
 router.post('/google',[
     googleValidator,
     check('id_token', 'Token de google necesario').not().isEmpty(),
     validateInputs
-],
-    googleLogin );
+    ],googleLogin );
+
+    
+
+
+
+router.get('admin/:id',[
+    validateJWT,
+    rolIsInRoles('ADMIN_ROLE')],
+    getUserProfileAdmin);
+
+
 module.exports = router;

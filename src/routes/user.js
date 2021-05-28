@@ -1,17 +1,17 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
-const { mailer,usersGet, userPut, signUp, usuariosDelete, userProfile } = require('../controllers/usersController');
+const { mailer,usersGet, usuariosDelete } = require('../controllers/usersController');
 
 const {rolIsInRoles, validateInputs, validateJWT,isAdmin} = require('../middlewares');
 
 const {ifEmailExists,userExistsById} = require('../middlewares/dbFunctionsValidator');
-
+const {updateUserProfileController,createNewUserController} = require('../controllers/auth-userController')
 const router = Router();
 
 
 router.get('/', [
     validateJWT,
-    //isAdmin
+    isAdmin
 ],usersGet )
 
 router.post('/', [
@@ -19,29 +19,23 @@ router.post('/', [
     check('lastName', 'El apellido es obligatorio').not().isEmpty(),
     check('email').isEmail().custom(ifEmailExists)
     .matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/),
-    //one uppercase, one lower case, one special character. 
     check('password', 'La contraseña necesita una minúscula, mayúscula, número y un caracter especial').not().isEmpty()
         .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/),
    validateInputs,
-],signUp);
-
-router.get('/:id',[
-    validateJWT,
-    check('id','No es un ID de Mongo').isMongoId(),
-    ], userProfile );
+],createNewUserController);
 
 router.put('/:id',[
     check('id','No es un ID de Mongo').isMongoId(),
     check('id').custom(userExistsById),
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('lastName', 'El apellido es obligatorio').not().isEmpty(),
-    check('email').isEmail().custom(ifEmailExists)
+    check('email').isEmail()
     .matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/),
     //one uppercase, one lower case, one special character. 
     check('password', 'La contraseña necesita una minúscula, mayúscula, número y un caracter especial').not().isEmpty()
     .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/),
     validateInputs,
-], userPut );
+],updateUserProfileController);
 
 
 router.delete('/:id',[
