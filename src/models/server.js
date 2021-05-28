@@ -47,9 +47,6 @@ class Server{
             this.app.use(morgan('dev'));   
         }
         
-        //errors
-       // this.app.use(notFound)
-        //this.app.use(errorHandler)
         //direccion public para el log
         this.app.use(express.static('public'));
      }

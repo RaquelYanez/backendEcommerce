@@ -2,7 +2,6 @@ const User = require('../entities/user');
 const bcryptjs = require('bcryptjs');
 const { createToken} = require('../middlewares/jwt')
 const {googleValidator} = require('../middlewares/validator-google')
- 
 
 //@desc Los users con sesion iniciada pueden ver su perfil y eliminarlo despues
 //@route GET /api/auth/:id
@@ -39,7 +38,7 @@ const googleLogin = async (req,res) =>{
     } catch (error) {
         res.status(400).json({msg: 'Token de Google incorrecto'})
     }
-   
+
 }
 
 
