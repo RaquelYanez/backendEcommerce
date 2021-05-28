@@ -14,7 +14,7 @@ router.post('/',[
 ], addBrand);
 
 //Get all brands = public {{url}}/api/brand
-router.get('/',[ validateInputs],getAllBrands);
+router.get('/',getAllBrands);
 
 //DELETE brand (ADMIN_ROLE) private(TOKEN) "precio/Oferta"
 router.delete('/:id',[
