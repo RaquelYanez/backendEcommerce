@@ -1,6 +1,6 @@
 const Order  = require('../entities/order');
 
-//@desc Crear un nuevo pedido
+//@desc Crear un nuevo pedido es la cesta
 //@route POST /api/order
 //@acces private
 const addOrderProducts =  async (req,res)=>{
@@ -85,11 +85,14 @@ const updateStatePaid =  async (req,res)=>{
 //@route GET /api/order/orders
 //@acces private
 const getOrders =  async (req,res)=>{
-
+    const {id} = req.params
     try { //aqui si separamos LOS DATOS DEL ENVIO TENGO QUE HACER UN POPULATE
-       const order = await Order.find()
-            res.json(order);
-        
+       const orders = await Order.find({user:id})
+            .populate('user', 'name email')
+            .populate('orderProducts.product', 'name')
+            .select('-user');
+    
+    res.json(orders);
 
     } catch (error) {
         res.status(404).json({msg:' Error en la busqueda del pedido'})  

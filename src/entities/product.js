@@ -87,7 +87,12 @@ const ProductSchema = Schema({
         type: Number, 
         required: false,
         default:0
-    }
+    },
+    /*sale:{
+        type: Number, 
+        required: false,
+        default:null
+    }*/
 }); 
 
 

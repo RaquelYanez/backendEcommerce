@@ -8,7 +8,7 @@ const isAdmin = (req,res,next) =>{
     const { rol,name } = req.user;
    
     if(rol !== 'ADMIN_ROLE') {
-        return res.status(401).json({msg: `${name} no tienes permiso para eliminar usuarios`})
+        return res.status(401).json({msg: `${name} no tienes permiso de administrador`})
     }
     next();
 }

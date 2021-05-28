@@ -1,15 +1,18 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
-const { mailer,usuariosGet, userPut, signUp, usuariosDelete, userProfile } = require('../controllers/usersController');
+const { mailer,usersGet, userPut, signUp, usuariosDelete, userProfile } = require('../controllers/usersController');
 
-const {rolIsInRoles, validateInputs, validateJWT} = require('../middlewares');
+const {rolIsInRoles, validateInputs, validateJWT,isAdmin} = require('../middlewares');
 
 const {ifEmailExists,userExistsById} = require('../middlewares/dbFunctionsValidator');
 
 const router = Router();
 
 
-router.get('/', usuariosGet )
+router.get('/', [
+    validateJWT,
+    //isAdmin
+],usersGet )
 
 router.post('/', [
     check('name', 'El nombre es obligatorio').not().isEmpty(),

@@ -46,18 +46,17 @@ transporter.sendMail(mailOptions, function(error, info){
   }
 }); 
 } 
-//@desc LISTAR USUSARIOS
+//@desc LISTAR USUSARIOS para despues de actualiar el estado del pedido
 //@route GET /api/user
-//@acces public
-//primerEjemplo de paginacion para repsar en productos
+//@acces private admin
 //para mostrar todos los usuarios paginados... seria como para la parte de ADMIN
-const usuariosGet = async (req,res ) =>{
+const usersGet = async (req,res ) =>{
     //marco el tamano de la paginacion
     const {limit = 5, offset = 0} = req.query;
     //el .select('-password') hacemos que no nos muestre x campo, en un sitio en concreto
     const [totalUsers, users] = await Promise.all([
-        User.countDocuments(),
-        User.find().select('-password')
+        User.countDocuments({rol:'USER_ROLE'}),
+        User.find({rol:'USER_ROLE'}).select('-password')
         .skip(Number(offset)) //desde xnumber hasta el limitnumber localhost:8080/api/user?offset=5 -> del 5 al 10
         .limit(Number(limit))
     ])
@@ -128,7 +127,7 @@ const usuariosDelete = async (req, res) =>{
 
 module.exports = {
     mailer,
-    usuariosGet,
+    usersGet,
     userPut,
     signUp,
     usuariosDelete,

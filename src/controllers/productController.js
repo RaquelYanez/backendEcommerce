@@ -6,7 +6,7 @@ const Product  = require('../entities/product');
 //@route GET /api/product
 //@acces public
 const getProducts =  async (req,res)=>{
-    const {limit = 5, offset = 0} = req.query;
+    const {limit = 6, offset = 0} = req.query;
     try {
         //Como tenemos dos promesas dependientes, lo que hacemos es un promise.all ganamos tiempo modo "hilos de js" ya se q no existen 
         const [totalProducts, products] = await Promise.all([ //desestructuro el array en 2
@@ -154,7 +154,7 @@ const getTopProduct = async (res) => {
     //sort es para ordenar ,indicaremos el campo o los campos por los cuales queremos ordenar la consulta
     try {
         const product = await Product.find({}).sort({rating:-1}).limit(6);
-        res.json(products)   
+        res.json(product)   
     } catch (error) {
         res.status(500).json({msg:'Error en los detacados.'})
     }
