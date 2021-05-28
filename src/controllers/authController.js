@@ -31,7 +31,7 @@ const login = async (req,res) =>{
         })
         
     }} 
-   */
+  */
 //@desc Los users con sesion iniciada pueden ver su perfil
 //@route GET /api/auth/:id
 //@acces private
@@ -61,6 +61,7 @@ const getUserProfile= async (req,res) =>{
     }
    
 } 
+
 
 //@desc Los users con sesion iniciada pueden ver su perfil y eliminarlo despues
 //@route GET /api/auth/:id
