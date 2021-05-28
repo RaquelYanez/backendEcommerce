@@ -150,15 +150,14 @@ const createReviewToOneProduct = async (req,res)=>{
 //@desc Hacer el carousel con los detacados
 //@route GET /api/product/top
 //@acces public 
-const getTopProduct = async (res) => {
+const getTopProduct = async (req,res) => {
     //sort es para ordenar ,indicaremos el campo o los campos por los cuales queremos ordenar la consulta
     try {
-        const product = await Product.find({}).sort({rating:-1}).limit(6);
-        res.json(product)   
+        const product = await Product.find({}).sort({ratingProduct:-1}).limit(6);
+        res.status(201).json({product})   
     } catch (error) {
         res.status(500).json({msg:'Error en los detacados.'})
-    }
-    
+    }   
 }
 
 

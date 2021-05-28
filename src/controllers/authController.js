@@ -5,6 +5,7 @@ const {googleValidator} = require('../middlewares/validator-google')
 //@desc PERMITE A LOS USUARIOS INICIAR SESION
 //@route POST /api/auth
 //@acces public
+/*
 const login = async (req,res) =>{
 
     const { email, password } = req.body;
@@ -30,7 +31,7 @@ const login = async (req,res) =>{
         })
         
     }} 
-   
+   */
 //@desc Los users con sesion iniciada pueden ver su perfil
 //@route GET /api/auth/:id
 //@acces private
@@ -120,6 +121,7 @@ const googleLogin = async (req,res) =>{
     }
    
 }
+//login
 
 
-module.exports = {login,googleLogin,getUserProfile,getUserProfileAdmin}
+module.exports = {googleLogin,getUserProfile,getUserProfileAdmin}

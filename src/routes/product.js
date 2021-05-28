@@ -17,13 +17,15 @@ router.get('/', asyncHandler(async (req,res)=>{
 */
 //publica
 router.get('/',getProducts);
+
+//para el carousel los destacados...
+router.get('/top',getTopProduct);
+
 //publica
 router.get('/:id',[
     check('id','No es un ID de Mongo').isMongoId(),
 ],getOneProduct);
 
-//para el carousel los destacados...
-router.get('/top',getTopProduct);
 
 //privada token ADMIN
 router.post('/',[

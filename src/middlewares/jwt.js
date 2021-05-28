@@ -1,4 +1,3 @@
-//const jwt = require('jwt-simple')
 const jwt = require('jsonwebtoken');
 
 //Creamos una promesa, 
