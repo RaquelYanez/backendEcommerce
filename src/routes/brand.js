@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const {check} = require('express-validator');
 const {validateJWT,validateInputs,brandValidator,isAdmin} = require('../middlewares');
+
 const {addBrand,getAllBrands,deleteBrandById} = require('../controllers/brandController');
 const router = Router();
 
