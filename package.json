@@ -9,7 +9,6 @@
   "scripts": {
     "desarrollo": "nodemon app.js",
     "start": "node app.js",
-    "web": "node app.js",
     "data:import": "node seeder",
     "data:destroy": "node seeder -d"
   },
