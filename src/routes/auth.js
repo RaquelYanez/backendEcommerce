@@ -3,8 +3,8 @@ const {check } = require('express-validator');
 const {getUserProfileAdmin,googleLogin} = require('../controllers/authController');
 const {validateInputs,validateJWT,rolIsInRoles,googleValidator} = require('../middlewares');
 
-const {loginController,getUserProfileController,googleLoginController} = require('../controllers/auth-userController/index')
-//googleLogin
+const {loginController,getUserProfileController} = require('../controllers/auth-userController/index')
+//googleLoginController
 const router = Router();
 
 router.post('/login',[

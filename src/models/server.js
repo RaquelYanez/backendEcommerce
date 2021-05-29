@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const nodemailer = require('nodemailer');
+//const nodemailer = require('nodemailer');
 const { dbConnection } = require('../database/config');
 //const {notFound,errorHandler} =  require('../middlewares/error');
 
