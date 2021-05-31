@@ -5,7 +5,7 @@ const {getProducts,createOneProduct,updateProduct,createReviewToOneProduct} = re
 
 const {isAdmin,validateInputs, validateJWT} = require('../middlewares');
 
-const {getOneProductController,topProductsController} = require('../controllers')
+const {getOneProductController,topProductsController,createProductController} = require('../controllers')
 //publica
 router.get('/',getProducts);
 
@@ -16,11 +16,9 @@ router.get('/:id',[
     check('id','No es un ID de Mongo').isMongoId(),
 ],getOneProductController,);
 
-
-//privada token ADMIN
 router.post('/',[
-    validateJWT,
-    isAdmin,
+   // validateJWT,
+    //isAdmin,
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('image', 'La imagen es obligatoria').not().isEmpty(),
     check('color', 'El color es obligatorio').not().isEmpty(),
@@ -30,7 +28,8 @@ router.post('/',[
     check('descriptionShort', 'La descriptionShort es obligatoria').not().isEmpty(),
     check('category', 'La category es obligatoria').not().isEmpty(),
     validateInputs,
-],createOneProduct);
+],createProductController);
+//createOneProduct
 
 //privada token ADMIN
 router.put('/:id',[

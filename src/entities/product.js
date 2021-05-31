@@ -65,7 +65,7 @@ const ProductSchema = Schema({
     descriptionLong:{ 
         type: String
     },
-    category:{  //kids
+    category:{
         type: Schema.Types.ObjectId,
         required :true,
         ref:'Category'

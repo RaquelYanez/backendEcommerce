@@ -17,4 +17,5 @@ async function execute(req,res){
         res.status(404).json({msg:`No hay productos de con ${regexCategory}`});
     }
 }
+
 module.exports = execute 

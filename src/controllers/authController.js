@@ -3,16 +3,6 @@ const bcryptjs = require('bcryptjs');
 const { createToken} = require('../middlewares/jwt')
 const {googleValidator} = require('../middlewares/validator-google')
 
-
-//@desc Los users con sesion iniciada pueden ver su perfil y eliminarlo despues
-//@route GET /api/auth/:id
-//@acces private
-
-//ESTOU AQUIIIIII
-const getUserProfileAdmin= async (req,res) =>{
-
-} 
-
 //LOGIN de un user registrado en GOOGLE
 const googleLogin = async (req,res) =>{
    
@@ -46,4 +36,4 @@ const googleLogin = async (req,res) =>{
 
 
 //,getUserProfile googleLogin
-module.exports = {getUserProfileAdmin,googleLogin}
+module.exports = {googleLogin}

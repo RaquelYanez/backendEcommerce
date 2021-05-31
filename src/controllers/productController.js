@@ -93,12 +93,11 @@ const createReviewToOneProduct = async (req,res)=>{
     const {rating, comment} = req.body;
     try {
     const product = await Product.findById(id);
-    if(product){
-        //primero comprobamos si hay algun comentario del usuario
-        //En el caso de que no creamos una, solo van a poder comentar una vez por review podran "EDITARLA", "BORRAR"
-        const alredyDoReview = product.reviews.find(review => review.user.toString() === userId.toString());
+    if(product){ //POR AHORA SOLO COMENTAMOS 
 
-        if(alredyDoReview){
+       //const alredyDoReview = product.reviews.find(review => review.user.toString() === userId.toString());
+
+        //if(alredyDoReview){
           //  res.status(400).json({msg:'Ya has comentado este producto.'})
         //}
 
@@ -120,7 +119,7 @@ const createReviewToOneProduct = async (req,res)=>{
         await product.save();
         res.status(201).json({msg:` Hola, ${req.user.name} se ha enviado tu valoracion del producto`})
         }
-    }
+    
     res.status(204).json({msg:`No se encuentra el producto ${id}`})
     } catch (error) {
         res.status(500).json({msg:'La valoracion de este producto ha fallado.'})

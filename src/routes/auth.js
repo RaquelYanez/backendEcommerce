@@ -28,10 +28,4 @@ router.post('/google',[
 
 
 
-router.get('admin/:id',[
-    validateJWT,
-    rolIsInRoles('ADMIN_ROLE')],
-    getUserProfileAdmin);
-
-
 module.exports = router;

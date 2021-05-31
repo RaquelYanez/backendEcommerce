@@ -10,10 +10,17 @@ const fetchProductsByCategory = require('./products-uc/getProductsByCategory-uc'
 const getTopProducts = require('./products-uc/getTopProducts-uc');
 const filterByBrand = require('./search-products-uc/getProductsByCategory&Brand-uc');
 const filterByName = require('./search-products-uc/getProductsByCategory&Name-uc');
-
+const addBrand = require('./admin-uc/brand-uc/addBrand-uc');
+const createProduct = require('./admin-uc/product-uc/createOneProduct-uc');
+const deleteBrand = require('./admin-uc/brand-uc/deleteOneBrand-uc');
+const showBrands = require('./admin-uc/brand-uc/getAllBrands-uc');
 module.exports = {
+    addBrand,
+    createProduct,
+    deleteBrand,
     getTopProducts,
     login,
+    showBrands,
     filterByBrand,
     filterByName,
     deleteAcount,

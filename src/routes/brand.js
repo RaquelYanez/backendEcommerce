@@ -1,35 +1,25 @@
 const { Router } = require('express');
 const {check} = require('express-validator');
-const {validateJWT,validateInputs,brandValidator,isAdmin} = require('../middlewares');
-
-const {addBrand,getAllBrands,deleteBrandById} = require('../controllers/brandController');
+const {validateJWT,validateInputs,brandValidator,isAdmin, brandProduct} = require('../middlewares');
+const {deleteBrandController,addBrandController,showBrandsController} = require('../controllers')
 const router = Router();
 
+router.get('/',showBrandsController);
 
-//Add new brand (ADMIN_ROLE) private(TOKEN)
 router.post('/',[
     validateJWT,
     isAdmin,
     check('brandName','El nombre de la marca es obligatorio').not().isEmpty(),
+    check('id').custom(brandValidator),
     validateInputs,
-], addBrand);
+], addBrandController);
 
-//Get all brands = public {{url}}/api/brand
-router.get('/',getAllBrands);
-
-//DELETE brand (ADMIN_ROLE) private(TOKEN) "precio/Oferta"
 router.delete('/:id',[
+    check('id').custom(brandProduct),
     validateJWT,
     isAdmin,
     check('id','No es un ID de Mongo').isMongoId(),
-    check('id').custom(brandValidator),
     validateInputs
-    ],deleteBrandById)
-
-
-
-
-
-
+    ],deleteBrandController)
 
 module.exports = router;

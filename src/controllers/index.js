@@ -9,10 +9,17 @@ const getProductsByCategoryController = require('../controllers/products-control
 const topProductsController = require('../controllers/products-controller/getTopProducts-controller')
 const filterByBrandController = require('../controllers/search-products-controller/getProductsByCategory&Brand-controller')
 const filterByNameController = require('../controllers/search-products-controller/getProductsByCategory&Name-controller')
-
-
+const addBrandController = require('../controllers/admin-controller/brand-controller/addBrand-controller')
+const createProductController = require('../controllers/admin-controller/product-controller/createOneProduct-controller')
+const deleteBrandController = require('../controllers/admin-controller/brand-controller/deleteOneBrand-controller')
+const showBrandsController = require('../controllers/admin-controller/brand-controller/getAllBrands-controller')
 
 module.exports ={ 
+    addBrandController,
+    createProductController,
+    createNewUserController,
+    deleteAcountController,
+    deleteBrandController,
     filterByBrandController,
     filterByNameController,
     topProductsController,
@@ -21,8 +28,8 @@ module.exports ={
     getUserProfileController,
     loginController,
      //                googleLoginController,
+    showBrandsController,
     updateUserProfileController,
-    createNewUserController,
-    deleteAcountController,
+   
 
 }
