@@ -10,7 +10,6 @@ router.post('/',[
     validateJWT,
     isAdmin,
     check('brandName','El nombre de la marca es obligatorio').not().isEmpty(),
-    check('id').custom(brandValidator),
     validateInputs,
 ], addBrandController);
 
