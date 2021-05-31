@@ -2,8 +2,7 @@ const Product  = require('../entities/product');
 
 const brandProduct = async(id) => {
     const productWithBrand = await Product.find({brand:id})
-    console.log(productWithBrand)
-    if(productWithBrand){
+    if(productWithBrand.length > 0){
         throw new Error('Existen productos con esta marca')
     }
 }
