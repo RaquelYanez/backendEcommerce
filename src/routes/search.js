@@ -1,15 +1,20 @@
 const {Router} = require('express');
 const router = Router();
-const {searchAllProduct,searchByFilter,searchByName,searchByCategory} = require('../controllers/searchController')
+const {searchByFilter} = require('../controllers/searchController')
+const {getProductsByCategoryController,filterByBrandController,filterByNameController} = require('../controllers')
 
-router.get('/:collection/:keyword/:filter', searchByFilter) //para cada una de las collections
+//searchAllProduct
+//router.get('/:collection/:keyword/:filter', searchByFilter) //para cada una de las collections
 
-//para la entrada de los productos 
-router.get('/:category/products', searchByCategory)
-//bucador por todos los productos
-router.get('/:keyword', searchAllProduct)
+//para la entrada de los productos por la categoria
+router.get('/:category/products', getProductsByCategoryController)
 
-//para buscar los productos filtrador categoria
-router.get('/:category/:keyword', searchByName)
+//bucador por todos los productosfiltrados por la categoria
+router.get('/name/:category/:keyword',filterByNameController)
+
+//para buscar los productos por MARCA filterByCategory&Brand   filterByBrandController === searchByName
+router.get('/:category/:keyword',filterByBrandController )
+
+
 
 module.exports = router;

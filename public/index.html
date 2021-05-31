@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google LogIn</title>
 
+  
     <meta name="google-signin-client_id" content="265257747180-okg07igvhi8ol2ns1v18ncnemf5vcb7i.apps.googleusercontent.com">
 </head>
 <body>
@@ -15,7 +16,7 @@
 
     <a href="#" onclick="signOut();">Sign out</a>
 
-   
+  
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <script>
@@ -31,6 +32,7 @@
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
         const id_token = googleUser.getAuthResponse().id_token;
+
         const data = {id_token}
         
         fetch(url,{

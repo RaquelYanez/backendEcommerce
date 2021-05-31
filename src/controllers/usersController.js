@@ -64,19 +64,8 @@ const usersGet = async (req,res ) =>{
 }
 
 
-//@desc eliminar el perfil de un usuario 
-//@route DELETE /api/user
-//@acces private
-const usuariosDelete = async (req, res) =>{
-    //buscamos por id al usuario con otro usuario, si eese usuario tiene un token activo, nos deja eliminar al usuaio que bbuscamos por id
-    const { id } = req.params
-    const user = await User.findByIdAndDelete(id); //usuario que vamos a borrar
-    res.status(200).json({msg:`el user ${user} ha sido eliminado`})
-}
-
 module.exports = {
     mailer,
     usersGet,
-    usuariosDelete,
 
 }

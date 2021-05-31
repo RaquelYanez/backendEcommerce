@@ -25,27 +25,6 @@ const getProducts =  async (req,res)=>{
     }
 }
 
-//@desc fetch single product
-//@route GET /api/product
-//@acces public
-const getOneProduct = async (req,res)=>{
-    const {id} = req.params
-    try {
-        const product = await Product.findById(id).populate('user', 'name').select('-user')
-        .populate('category')
-        .populate('brand')
-        .populate('sizeProduct.size')
-        .populate('reviews.user', 'name');
-        if(product){
-          res.json(product) 
-        }  
-    } catch (err) {
-
-        res.status(404).json({msg:`Producto con id: ${id} no encontrado`})  
-    }
-    
-};
-
 
 /**ME FALTA EL DE BORRAR UN PRODUCTO 
  * POR EL ADMINISTRADORRRRRR 
@@ -118,9 +97,11 @@ const createReviewToOneProduct = async (req,res)=>{
         //primero comprobamos si hay algun comentario del usuario
         //En el caso de que no creamos una, solo van a poder comentar una vez por review podran "EDITARLA", "BORRAR"
         const alredyDoReview = product.reviews.find(review => review.user.toString() === userId.toString());
+
         if(alredyDoReview){
-            res.status(400).json({msg:'Ya has comentado este producto.'})
-        }
+          //  res.status(400).json({msg:'Ya has comentado este producto.'})
+        //}
+
         const review = { 
             name: req.user.name,
             rating: Number(rating), //va a venir en el body que hemos desestructurado antes 
@@ -138,7 +119,7 @@ const createReviewToOneProduct = async (req,res)=>{
            
         await product.save();
         res.status(201).json({msg:` Hola, ${req.user.name} se ha enviado tu valoracion del producto`})
-        
+        }
     }
     res.status(204).json({msg:`No se encuentra el producto ${id}`})
     } catch (error) {
@@ -147,26 +128,13 @@ const createReviewToOneProduct = async (req,res)=>{
     
 };
 
-//@desc Hacer el carousel con los detacados
-//@route GET /api/product/top
-//@acces public 
-const getTopProduct = async (req,res) => {
-    //sort es para ordenar ,indicaremos el campo o los campos por los cuales queremos ordenar la consulta
-    try {
-        const product = await Product.find({}).sort({ratingProduct:-1}).limit(6);
-        res.status(201).json({product})   
-    } catch (error) {
-        res.status(500).json({msg:'Error en los detacados.'})
-    }   
-}
+
 
 
 module.exports = {
     getProducts,
-    getOneProduct,
     createOneProduct,
     updateProduct,
     createReviewToOneProduct,
-    getTopProduct,
-   
+  
 }

@@ -1,4 +1,4 @@
-const { createToken} = require('../../middlewares/jwt');
+const { createToken } = require('../../middlewares/jwt');
 const {login} = require('../../uc');
 
 //@desc PERMITE A LOS USUARIOS INICIAR SESION

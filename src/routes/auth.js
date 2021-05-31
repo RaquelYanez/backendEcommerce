@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
 const {getUserProfileAdmin,googleLogin} = require('../controllers/authController');
-const {validateInputs,validateJWT,rolIsInRoles,googleValidator} = require('../middlewares');
+const {validateInputs,validateJWT,rolIsInRoles} = require('../middlewares');
 
-const {loginController,getUserProfileController} = require('../controllers/auth-userController/index')
+const {loginController,getUserProfileController,googleLoginController} = require('../controllers')
 //googleLoginController
 const router = Router();
 
@@ -15,15 +15,15 @@ router.post('/login',[
 
 router.get('/:id/profile',[
     check('id','No es un ID de Mongo').isMongoId(),
-    validateJWT],
+    validateJWT
+],
     getUserProfileController ); 
 
 router.post('/google',[
-    googleValidator,
     check('id_token', 'Token de google necesario').not().isEmpty(),
     validateInputs
-    ],googleLogin );
-
+    ], googleLogin);
+//googleLoginController
     
 
 

@@ -2,10 +2,10 @@ const {OAuth2Client} = require('google-auth-library');
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT);
 
-const googleValidator = async (idToken) => {
+const googleValidator = async (id_token) => {
 
     const ticket = await client.verifyIdToken({
-      idToken,
+      idToken:id_token,
       audience: process.env.GOOGLE_CLIENT,
   });
   //desestructuro y renombro el payload para poder llamarlo como en el modelo

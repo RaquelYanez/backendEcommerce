@@ -1,20 +1,20 @@
 const { Router } = require('express');
 const router = Router();
 const {check } = require('express-validator');
-const {getTopProduct,getProducts,getOneProduct,createOneProduct,updateProduct,createReviewToOneProduct} = require('../controllers/productController');
+const {getProducts,createOneProduct,updateProduct,createReviewToOneProduct} = require('../controllers/productController');
 
 const {isAdmin,validateInputs, validateJWT} = require('../middlewares');
 
+const {getOneProductController,topProductsController} = require('../controllers')
 //publica
 router.get('/',getProducts);
 
-//para el carousel los destacados...
-router.get('/top',getTopProduct);
+router.get('/top',topProductsController);
 
 //publica
 router.get('/:id',[
     check('id','No es un ID de Mongo').isMongoId(),
-],getOneProduct);
+],getOneProductController,);
 
 
 //privada token ADMIN
