@@ -1,7 +1,7 @@
 const { createProduct } = require('../../../uc');
 
 //@desc Dar de alta un producto
-//@route POST /api/brand
+//@route POST /api/product
 //@acces private ADMIN
 async function execute(req,res){
 const {user,name,image,color,price,brand,sizeProduct,

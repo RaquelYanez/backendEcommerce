@@ -6,6 +6,7 @@ const validateJWT = require('../middlewares/validate-jwt');
 const brandValidator = require('../middlewares/validate-brand');
 const brandProduct = require('../middlewares/validate-productBrand');
 const googleValidator = require('../middlewares/validator-google');
+const isProductValidator = require('../middlewares/validate-isProduct');
 module.exports ={ 
     ...isAdmin,
     ...brandProduct,
@@ -14,5 +15,6 @@ module.exports ={
     ...validateJWT,
     ...brandValidator,
     ...googleValidator,
+    ...isProductValidator
 
 }

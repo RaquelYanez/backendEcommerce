@@ -2,9 +2,7 @@ const User = require('../../entities/user');
 const bcryptjs = require('bcryptjs');
 
 async function execute( id,name, lastName,password,email){
-
     const user = await User.findById(id)
-    
     if(user){
         user.name = name || user.name,
         user.lastName = lastName || user.lastName
@@ -18,7 +16,6 @@ async function execute( id,name, lastName,password,email){
         }
     }
     const userUpdated = await user.save();
-    console.log(userUpdated)
     return userUpdated
 }
 module.exports = execute

@@ -1,13 +1,13 @@
 const { Router } = require('express');
 const router = Router();
 const {check } = require('express-validator');
-const {getProducts,createOneProduct,updateProduct,createReviewToOneProduct} = require('../controllers/productController');
+const {} = require('../controllers/productController');
 
-const {isAdmin,validateInputs, validateJWT} = require('../middlewares');
+const {isAdmin,validateInputs, validateJWT,isProductValidator} = require('../middlewares');
 
-const {getOneProductController,topProductsController,createProductController} = require('../controllers')
+const {getOneProductController,topProductsController,createProductController, updatedProductController,createReviewController} = require('../controllers')
 //publica
-router.get('/',getProducts);
+//router.get('/',getProducts);
 
 router.get('/top',topProductsController);
 
@@ -17,8 +17,8 @@ router.get('/:id',[
 ],getOneProductController,);
 
 router.post('/',[
-   // validateJWT,
-    //isAdmin,
+    validateJWT,
+    isAdmin,
     check('name', 'El nombre es obligatorio').not().isEmpty(),
     check('image', 'La imagen es obligatoria').not().isEmpty(),
     check('color', 'El color es obligatorio').not().isEmpty(),
@@ -29,23 +29,21 @@ router.post('/',[
     check('category', 'La category es obligatoria').not().isEmpty(),
     validateInputs,
 ],createProductController);
-//createOneProduct
 
-//privada token ADMIN
 router.put('/:id',[
     validateJWT,
     isAdmin,
     check('id','No es un ID de Mongo').isMongoId(),
     validateInputs,
-],updateProduct);
+],updatedProductController);
 
-//privada token
 router.post('/:id/review',[
     validateJWT,
     check('id','No es un ID de Mongo').isMongoId(),
+    check('id').custom(isProductValidator),
     check('rating', 'Tienes que marcar una puntuacion').not().isEmpty(),
-    //check('comment', 'Tienes que escribir un comentario').not().isEmpty(),
+    check('comment', 'Tienes que escribir un comentario').not().isEmpty(),
     validateInputs,
-],createReviewToOneProduct);
+],createReviewController);
 
 module.exports = router

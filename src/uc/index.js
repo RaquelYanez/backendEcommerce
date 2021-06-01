@@ -14,10 +14,13 @@ const addBrand = require('./admin-uc/brand-uc/addBrand-uc');
 const createProduct = require('./admin-uc/product-uc/createOneProduct-uc');
 const deleteBrand = require('./admin-uc/brand-uc/deleteOneBrand-uc');
 const showBrands = require('./admin-uc/brand-uc/getAllBrands-uc');
+const updateProduct = require('./admin-uc/product-uc/updateOneProduct-uc');
+const createReview = require('./user-uc/createReview-uc')
 module.exports = {
     addBrand,
     createProduct,
     deleteBrand,
+    createReview,
     getTopProducts,
     login,
     showBrands,
@@ -27,6 +30,7 @@ module.exports = {
     getProfile,
  //   googleLogin,
     updateUserProfile,
+    updateProduct,
     newUsersignUp,
     fetchOne,
     fetchProductsByCategory,

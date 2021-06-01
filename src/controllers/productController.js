@@ -2,6 +2,7 @@ const Product  = require('../entities/product');
 
 //OBTENEMOS TODOS LOS PRODUCTOS FALTA PAGINAR GUAY en front
 
+/*
 //@desc coge todos los productos
 //@route GET /api/product
 //@acces public
@@ -23,7 +24,7 @@ const getProducts =  async (req,res)=>{
     } catch (error) {
         res.status(500).json({msg:' Error en la busqueda'})  
     }
-}
+}*/
 
 
 /**ME FALTA EL DE BORRAR UN PRODUCTO 
@@ -35,7 +36,7 @@ const getProducts =  async (req,res)=>{
 //@acces private Admin */
 
 
-
+/*
 //@desc Create product
 //@route POST /api/product
 //@acces private Admin
@@ -56,8 +57,9 @@ const createOneProduct = async (req,res)=>{
     res.status(201).json(createdProduct)
     
 };
+*/
 
-
+/*
 //@desc Update product
 //@route PUT /api/product/:id
 //@acces private Admin
@@ -83,6 +85,7 @@ const updateProduct = async (req,res)=>{
     res.status(204).json({msg:`No se encuentra el producto ${id}`})
     
 };
+
 
 //@desc Hacer un comentario del producto asociado por el id
 //@route POST /api/product/:id/review
@@ -111,9 +114,9 @@ const createReviewToOneProduct = async (req,res)=>{
         product.totalReviews = product.reviews.length;
         //const reducer = (accumulator, currentValue) => accumulator + currentValue; Acumulador (acc), Valor Actual (cur), Índice Actual (idx)
         product.ratingProduct = product.reviews.reduce(
-            /*EL RATING ES LA CALIFICACION GLOBAL DEL PRODUCTO , 
-            sumamos todas las calificaciones que tenga ese producto y lo divismo entre el total de reviews*/
-            (accumulator,item)=>item.rating + accumulator, 0) / 
+            //EL RATING ES LA CALIFICACION GLOBAL DEL PRODUCTO , 
+            sumamos todas las calificaciones que tenga ese producto y lo divismo entre el total de reviews
+            (accumulator,item)=>item.rating + accumulator, 0) 
             product.reviews.length
            
         await product.save();
@@ -127,13 +130,11 @@ const createReviewToOneProduct = async (req,res)=>{
     
 };
 
-
-
-
+*/
 module.exports = {
-    getProducts,
-    createOneProduct,
-    updateProduct,
-    createReviewToOneProduct,
+   // getProducts,
+   // createOneProduct,
+    //updateProduct,
+   // createReviewToOneProduct,
   
 }

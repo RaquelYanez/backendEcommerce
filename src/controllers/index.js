@@ -13,11 +13,14 @@ const addBrandController = require('../controllers/admin-controller/brand-contro
 const createProductController = require('../controllers/admin-controller/product-controller/createOneProduct-controller')
 const deleteBrandController = require('../controllers/admin-controller/brand-controller/deleteOneBrand-controller')
 const showBrandsController = require('../controllers/admin-controller/brand-controller/getAllBrands-controller')
+const updatedProductController =  require('../controllers/admin-controller/product-controller/updateOneProduct-controller')
+const createReviewController = require('../controllers/auth-userController/createReview-controller')
 
 module.exports ={ 
     addBrandController,
-    createProductController,
     createNewUserController,
+    createProductController,
+    createReviewController,
     deleteAcountController,
     deleteBrandController,
     filterByBrandController,
@@ -30,6 +33,7 @@ module.exports ={
      //                googleLoginController,
     showBrandsController,
     updateUserProfileController,
+    updatedProductController
    
 
 }
