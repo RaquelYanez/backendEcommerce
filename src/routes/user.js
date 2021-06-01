@@ -28,6 +28,7 @@ router.post('/', [
 ],createNewUserController);
 
 router.put('/:id',[
+    validateJWT,
     check('id','No es un ID de Mongo').isMongoId(),
     check('id').custom(userExistsById),
     check('email').isEmail()
