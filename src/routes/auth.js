@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
-const {getUserProfileAdmin,googleLogin} = require('../controllers/authController');
+const {googleLogin} = require('../controllers/authController');
 const {validateInputs,validateJWT,rolIsInRoles} = require('../middlewares');
 
-const {loginController,getUserProfileController,googleLoginController} = require('../controllers')
+const {loginController,getUserProfileController} = require('../controllers')
 //googleLoginController
 const router = Router();
 
