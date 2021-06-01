@@ -3,8 +3,10 @@ const bcryptjs = require('bcryptjs');
 //importamos el modelo para crear instancias
 const User = require('../entities/user');
 //nodemailer
+
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
+const { getMaxListeners } = require('../entities/user');
 
 const mailer = async (req,res ) =>{
 const {name, lastName, email, password, rol} = req.body;
@@ -63,9 +65,22 @@ const usersGet = async (req,res ) =>{
     res.status(200).json({totalUsers,users})
 }
 
+const transporter = async (req,res ) =>{
+  const transport = nodemailer.createTransport({
+  host: "smtp.gmail.email",
+  port: 465,
+  secure: true,
+  auth: { 
+    user: 'jositoRaquelTfc@gmail.com',
+    pass:'mnpcrkceaakbutrm',
+  }
+})
+}
+  
 
 module.exports = {
     mailer,
     usersGet,
+    transporter,
 
 }

@@ -10,18 +10,8 @@ const OrderSchema = Schema({
     },
     orderProducts:[
         {
-            name: {
-                type: String,
-                required:true },
-            quantity: {
-                type: Number,
-                required:true },
-            image: {
-                type: String,
-                required:true },
-            price: {
-                type: Number,
-                required:true },
+            _id:false,
+            qty: { type: Number },
             product: {
                 type: Schema.Types.ObjectId,
                 required :true,
@@ -72,9 +62,9 @@ const OrderSchema = Schema({
     },
     deliveredDate: {
         type: Date,
-    },
-
-
+    }
+    
+    /*,
     //PARTE DE PRUEBAS
     payStatus :{
         id: {
@@ -85,9 +75,9 @@ const OrderSchema = Schema({
             }, //si es ok que ponga COMPLETADO o algo asi
         emailPaypal:{
             type: String,
-            },
+            },   
     }
- 
+  */
 }); 
 
 

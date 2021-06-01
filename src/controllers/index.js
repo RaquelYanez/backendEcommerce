@@ -15,6 +15,8 @@ const deleteBrandController = require('../controllers/admin-controller/brand-con
 const showBrandsController = require('../controllers/admin-controller/brand-controller/getAllBrands-controller')
 const updatedProductController =  require('../controllers/admin-controller/product-controller/updateOneProduct-controller')
 const createReviewController = require('../controllers/auth-userController/createReview-controller')
+const getOrdersController = require('../controllers/auth-userController/getOrders-controller')
+
 
 module.exports ={ 
     addBrandController,
@@ -27,6 +29,7 @@ module.exports ={
     filterByNameController,
     topProductsController,
     getOneProductController,
+    getOrdersController,
     getProductsByCategoryController,
     getUserProfileController,
     loginController,

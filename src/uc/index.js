@@ -16,6 +16,8 @@ const deleteBrand = require('./admin-uc/brand-uc/deleteOneBrand-uc');
 const showBrands = require('./admin-uc/brand-uc/getAllBrands-uc');
 const updateProduct = require('./admin-uc/product-uc/updateOneProduct-uc');
 const createReview = require('./user-uc/createReview-uc')
+const getOrders = require('./user-uc/getOrders-uc')
+
 module.exports = {
     addBrand,
     createProduct,
@@ -28,6 +30,7 @@ module.exports = {
     filterByName,
     deleteAcount,
     getProfile,
+    getOrders,
  //   googleLogin,
     updateUserProfile,
     updateProduct,

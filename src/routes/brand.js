@@ -21,4 +21,12 @@ router.delete('/:id',[
     validateInputs
     ],deleteBrandController)
 
+
+    const Brand  = require('../entities/brand');
+router.get('/brandName/:keyword', getBrandByName = async function (req,res){
+    const {keyword} = req.params;
+    const brandSelected = await Brand.findOne(
+        {brandName:{$regex:keyword, $options:'i'}})
+        res.status(200).json(brandSelected)
+})
 module.exports = router;

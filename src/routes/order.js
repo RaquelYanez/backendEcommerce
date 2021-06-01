@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
-const {addOrderProducts,getOrderProductsById,updateStatePaid,getOrders} = require('../controllers/orderController');
+const {addOrderProducts,getOrderProductsById,updateStatePaid} = require('../controllers/orderController');
 const {validateInputs,validateJWT} = require('../middlewares');
-
-
+const {getOrdersController} = require('../controllers/index')
+const {isOrderValidator} = require('../middlewares')
 const router = Router();
 
 router.post('/',[
@@ -11,19 +11,24 @@ router.post('/',[
     validateJWT
 ], addOrderProducts );
 
-router.get('/:id',[
-    validateInputs,
-    validateJWT
+router.get('/:id/orderDetail',[
+    validateJWT,
+    check('id','No es un ID de Mongo').isMongoId(),
+    check('id').custom(isOrderValidator),
+    validateInputs,  
 ], getOrderProductsById);
 
 router.put('/:id/ispaid',[
-    validateInputs,
-    validateJWT
+    validateJWT,
+    check('id','No es un ID de Mongo').isMongoId(),
+    check('id').custom(isOrderValidator),
+    validateInputs
 ], updateStatePaid);
 
-router.get('/:id/orders',[
+router.get('/orders',[
     validateJWT,
+    check('id').custom(isOrderValidator),
     validateInputs
-], getOrders)
+], getOrdersController)
 
 module.exports = router;

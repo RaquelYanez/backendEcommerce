@@ -64,7 +64,7 @@ class Server{
 
        //en el front necesitamos un script especific
        // <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
-       /** addPaypal = async() =>{ const {data: cientId}= await axios.get('api/config/paypal')
+       /** userEffect()=>{addPaypal = async() =>{ const {data: cientId}= await axios.get('api/config/paypal')
         * const script = document.createElement('script');
         * script.type = 'text/javascript';
         * script.src = `https://www.paypal.com/sdk/js?client-id=${cientId}`
@@ -77,7 +77,7 @@ class Server{
         System Generated Password: O*5!E%Fw
         Cuando esto suceda, tenemos que cambiar el estado de pago, a isPaid:true, es el endPoint de put updateStatePaid
         * */
-       this.app.get('api/config/paypal',(req,res) => res.send(process.env.PAYPAL_CLIENTID))
+       this.app.get('api/config/paypal',(req,res) => res.send(process.env.PAYPAL_CLIENTID))//de aqui coges el idPaypal
     }
 
     listen(){

@@ -46,6 +46,7 @@ router.delete('/:id',[
     validateInputs,
 ], deleteAcountController)
 
+
 //para el email usamos ethereal
 router.post('/send-email',mailer)
 module.exports = router;
