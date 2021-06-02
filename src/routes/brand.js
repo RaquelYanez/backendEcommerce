@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const {check} = require('express-validator');
-const {validateJWT,validateInputs,brandValidator,isAdmin, brandProduct} = require('../middlewares');
-const {deleteBrandController,addBrandController,showBrandsController} = require('../controllers')
+const {validateJWT,validateInputs,isAdmin, brandProduct} = require('../middlewares');
+const {deleteBrandController,addBrandController,showBrandsController, getBrandIfExistController} = require('../controllers')
 const router = Router();
 
 router.get('/',showBrandsController);
@@ -14,19 +14,17 @@ router.post('/',[
 ], addBrandController);
 
 router.delete('/:id',[
-    check('id').custom(brandProduct),
     validateJWT,
     isAdmin,
     check('id','No es un ID de Mongo').isMongoId(),
+    check('id').custom(brandProduct),
     validateInputs
     ],deleteBrandController)
 
 
-    const Brand  = require('../entities/brand');
-router.get('/brandName/:keyword', getBrandByName = async function (req,res){
-    const {keyword} = req.params;
-    const brandSelected = await Brand.findOne(
-        {brandName:{$regex:keyword, $options:'i'}})
-        res.status(200).json(brandSelected)
-})
+router.get('/brandName/:keyword',[
+    validateJWT,
+    isAdmin,
+    ],getBrandIfExistController)
+
 module.exports = router;

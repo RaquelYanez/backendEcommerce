@@ -1,21 +1,10 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
-const { mailer,usersGet } = require('../controllers/usersController');
-
-const {rolIsInRoles, validateInputs, validateJWT,isAdmin} = require('../middlewares');
-
+const {validateInputs, validateJWT} = require('../middlewares');
 const {ifEmailExists,userExistsById} = require('../middlewares/dbFunctionsValidator');
 const {updateUserProfileController,createNewUserController,deleteAcountController} = require('../controllers')
 
 const router = Router();
-
-/**validateJWT, //comprobamos que el token sigue siendo valido
-    //isAdmin, //middleware para ver si es admin o no
-    rolIsInRoles('ADMIN_ROLE'), */
-router.get('/', [
-    validateJWT,
-    isAdmin
-],usersGet )
 
 router.post('/', [
     check('name', 'El nombre es obligatorio').not().isEmpty(),
@@ -47,6 +36,4 @@ router.delete('/:id',[
 ], deleteAcountController)
 
 
-//para el email usamos ethereal
-router.post('/send-email',mailer)
 module.exports = router;

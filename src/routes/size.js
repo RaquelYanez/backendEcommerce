@@ -1,15 +1,21 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
-const {addSize} = require('../controllers/sizeController')
+const {isAdmin,validateInputs, validateJWT,sizeValidator} = require('../middlewares');
+const {getSizesController,addSizeController} = require('../controllers')
 
 const router = Router();
 
-//Add new brand (ADMIN_ROLE) private(TOKEN)
-router.post('/',[ check('sizeName', 'El nombre es obligatorio').not().isEmpty()],addSize);
+//Add new brand puede ser en BM o no, no es Keysensitive la busqueda
+router.post('/',[
+    validateJWT,
+    isAdmin,
+    check('sizeName', 'El nombre es obligatorio').not().isEmpty().custom(sizeValidator),
+    validateInputs,
+],addSizeController);
 
-const Size  = require('../entities/size');
-router.get('/', getSizeName = async function (req,res){
-    const sizes = await Size.find({})
-    res.status(200).json(sizes)
-})
+router.get('/',[
+    validateJWT,
+    isAdmin,
+], getSizesController)
+
 module.exports = router;

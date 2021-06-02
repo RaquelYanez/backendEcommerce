@@ -8,7 +8,7 @@ const collectionBD = [
 ]
 
 
-//@desc filtrar por categoria y marca
+//@desc filtrar por categoria y marca y l apalabra clave
 //@route GET /:collection/:keyword/:filter
 //@acces public
 const searchByFilter= async (req,res) =>{
@@ -41,49 +41,8 @@ const searchByFilter= async (req,res) =>{
 
 }
 
-/*
-//por categor
-//@desc filtrar por categoria y nombre producto paginacion 
-//@route GET /:category?keyword
-//@acces public
-const searchByName= async (req,res) =>{
-    const {category} = req.params;
-    const {keyword} = req.params;
-    const regexCategory = new RegExp (category, 'i')
-    const regexKeyword = new RegExp (keyword, 'i')
-    const pageSize = 5 //cuantos por pagina
-    const page = Number(req.query.pageNumber) || 1
-    try {
-        const categorySelected = await Category.findOne({categoryName:regexCategory}).populate('category')
-        if(categorySelected.categoryName === category.toUpperCase()){      
-           const product = await Product.find({ //para contar las respuestas lo mismo pero con el countDocuments
-                $or: [{name:regexKeyword}, {descriptionShort:regexKeyword}, {color:regexKeyword}],
-                $and:[{category : categorySelected._id}]})
-            .populate('category')
-            .populate('brand')
-            .populate('sizeProduct.size')
-            .select('-user')
-            .limit(pageSize).skip(pageSize * (page-1))
-        
-        const total = await Product.countDocuments({ 
-            $or: [{name:regexKeyword}, {descriptionShort:regexKeyword}, {color:regexKeyword}],
-            $and:[{category : categorySelected._id}]})
-            .populate('category')
-            .populate('brand')
-            .populate('sizeProduct.size')
-            .select('-user')
-            
-           res.status(200).json({ total,product, page, pages: Math.ceil(total / pageSize)})
-        }
-        
-    }catch (error) {
-        res.status(404).json({msg:`No hay productos de con ${regexKeyword}`});
-    }
 
-}
-*/
-
-//@desc filtrar por todos los productos de la pagina
+//@desc filtrar por todos los productos de la pagina sin categoria ni nada
 //@route GET /:keyword
 //@acces public
 const searchAllProduct= async (req,res) =>{

@@ -8,6 +8,9 @@ const brandProduct = require('../middlewares/validate-productBrand');
 const googleValidator = require('../middlewares/validator-google');
 const isProductValidator = require('../middlewares/validate-isProduct');
 const isOrderValidator = require('../middlewares/validate-hasOrder');
+const sizeValidator = require('../middlewares/validator-isSizeName');
+const categoryValidator = require('../middlewares/validator-isCategoryName');
+
 
 module.exports ={ 
     ...isAdmin,
@@ -19,4 +22,7 @@ module.exports ={
     ...googleValidator,
     ...isProductValidator,
     ...isOrderValidator,
+    ...sizeValidator,
+    ...categoryValidator,
+
 }

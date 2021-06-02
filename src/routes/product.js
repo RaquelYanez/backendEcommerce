@@ -1,11 +1,8 @@
 const { Router } = require('express');
 const router = Router();
 const {check } = require('express-validator');
-const {} = require('../controllers/productController');
-
 const {isAdmin,validateInputs, validateJWT,isProductValidator} = require('../middlewares');
-
-const {getOneProductController,topProductsController,createProductController, updatedProductController,createReviewController} = require('../controllers')
+const {getOneProductController,topProductsController,createProductController, updatedProductController,createReviewController,deleteProductController} = require('../controllers')
 //publica
 //router.get('/',getProducts);
 
@@ -45,5 +42,11 @@ router.post('/:id/review',[
     check('comment', 'Tienes que escribir un comentario').not().isEmpty(),
     validateInputs,
 ],createReviewController);
+
+router.delete('/:id', [
+    check('id','No es un ID de Mongo').isMongoId(),
+    check('id').custom(isProductValidator),
+    validateInputs, 
+], deleteProductController)
 
 module.exports = router

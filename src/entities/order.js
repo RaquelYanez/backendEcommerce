@@ -55,7 +55,7 @@ const OrderSchema = Schema({
     paidDate: {
         type: Date,
     },
-    isDelivered:{
+    isDelivered:{ 
         type: Boolean,
         default: false,
         required:true 
