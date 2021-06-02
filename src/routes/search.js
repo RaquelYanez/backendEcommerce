@@ -1,6 +1,5 @@
 const {Router} = require('express');
 const router = Router();
-const {searchByFilter} = require('../controllers/searchController')
 const {getProductsByCategoryController,filterByBrandController,filterByNameController} = require('../controllers')
 
 //searchAllProduct
