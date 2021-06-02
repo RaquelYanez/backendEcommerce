@@ -29,7 +29,8 @@ async function execute(req,res){
         }
 
     }catch (error) {
-        res.status(404).json({msg:`No hay productos de con ${regexCategory}`});
+        regexCategory= null
+        res.status(404).json({msg:`No hay productos de con ${regexCategory}`,regexCategory});
     }
 }
 

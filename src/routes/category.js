@@ -12,7 +12,6 @@ router.post('/',[
      validateInputs,
     ],addCategoryController);
 
-
 router.get('/categoryName/:keyword',[
     validateJWT,
     isAdmin,

@@ -15,6 +15,7 @@ async function execute(req,res){
         const {product,total,pages} = productObject   
         res.status(200).json({total,page,pages,product})    
     }catch (error) {
+       
         res.status(404).json({msg:`No hay productos de con ${keyword}`});
     }
 }

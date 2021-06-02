@@ -20,5 +20,4 @@ async function execute(req,res){
     }
 }
 
-
 module.exports = execute 
