@@ -16,6 +16,7 @@ const Product = require('../../entities/product');
              .populate('brand')
              .populate('sizeProduct.size')
              .select('-user')
+             
          const pages =  Math.ceil(total / pageSize) //para devolver el mayor o = del entero dado
          const productObject = { product, total,pages}
          return productObject
