@@ -12,7 +12,7 @@ async function execute(req,res){
         }
         res.status(200).json(isCategory)    
     } catch (error) {
-        res.status(404).json({msg:`Error en la busqueda de la categoria ${keyword}`,keyword})    
+        res.status(404).json({msg:`Error en la busqueda de la categoria ${keyword}`})    
     }  
 };
 
