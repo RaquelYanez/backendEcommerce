@@ -1,12 +1,7 @@
 const { Router } = require('express');
 const {check} = require('express-validator');
-<<<<<<< HEAD
 const {validateJWT,validateInputs,isAdmin, brandProduct} = require('../middlewares');
 const {deleteBrandController,addBrandController,showBrandsController, getBrandIfExistController} = require('../controllers')
-=======
-const {validateJWT,validateInputs,brandValidator,isAdmin} = require('../middlewares');
-const {addBrand,getAllBrands,deleteBrandById} = require('../controllers/brandController');
->>>>>>> parent of 80a32c6... fuera google
 const router = Router();
 
 router.get('/',showBrandsController);
