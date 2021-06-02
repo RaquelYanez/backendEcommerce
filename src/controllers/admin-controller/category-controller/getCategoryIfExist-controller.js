@@ -8,11 +8,11 @@ async function execute(req,res){
     try {
         const isCategory =  await getCategoryIfExist(keyword);
         if(isCategory === null) {
-            res.status(404).json({msg:`Categoria no encontrada ${isCategory}`, isCategory})
+            throw new Error 
         }
         res.status(200).json(isCategory)    
     } catch (error) {
-        res.status(404).json({msg:`Error en la busqueda de la categoria ${keyword}`})    
+        res.status(404).json({msg:`Error en la busqueda de la categoria ${keyword}`,keyword})    
     }  
 };
 

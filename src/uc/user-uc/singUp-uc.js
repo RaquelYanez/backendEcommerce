@@ -23,9 +23,9 @@ async function execute(name, lastName, email, password, rol){
         }
       })
     await transporter.sendMail({
-        from: 'Updated Profile - Ecommerce-rj" <jositoRaquelTfc@gmail.com>',
+        from: 'Welcome to Ecommerce-rj" <jositoRaquelTfc@gmail.com>',
         to: user.email, 
-        subject: "Updated Profile ✔",
+        subject: "Your Profile",
         text: `Hola, ${user.name}, estos son tus datos actuales:
 
         Nombre: ${user.name},

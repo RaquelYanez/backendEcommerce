@@ -1,7 +1,7 @@
 const Product = require('../../entities/product');
 const Category = require('../../entities/category');
 const Brand  = require('../../entities/brand');
-//{$regex:category, $options:'i'}
+
 async function execute(category,keyword,pageSize,page){
     const categorySelected = await Category.findOne(
         {categoryName:{$regex:category, $options:'i'}})
