@@ -1,3 +1,4 @@
+const { createToken } = require('../../middlewares/jwt');
 const {newUsersignUp} = require('../../uc');
 const nodemailer = require('nodemailer');
 
@@ -9,7 +10,8 @@ async function execute(req,res){
     try{
         const user = await newUsersignUp(name, lastName, email, password, rol)
        //"manuelat120@gmail.com"
-        res.status(200).json({msg:'Se ha creado el usuario correctamente.',user})
+        const token = await createToken(user.id);
+        res.status(200).json({msg:'Se ha creado el usuario correctamente.',user,token})
     }catch(err) {
         console.log(err)
         res.status(400).send({msg:'No se ha podido crear al usuario.'})
