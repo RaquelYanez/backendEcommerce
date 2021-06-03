@@ -12,7 +12,7 @@ async function execute(req,res){
         }
         res.status(200).json(isBrand)    
     } catch (error) {
-        res.status(404).json({msg:`Error en la busqueda de la marca, null `})    
+        res.status(404).json({msg:'No se puede encontrar esta marca'})    
     }  
 };
 
