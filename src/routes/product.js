@@ -24,7 +24,7 @@ router.post('/',[
     check('brand', 'La brand es obligatoria').not().isEmpty(),
     check('descriptionShort', 'La descriptionShort es obligatoria').not().isEmpty(),
     check('category', 'La category es obligatoria').not().isEmpty(),
-  //  validateInputs,
+    validateInputs,
 ],createProductController);
 
 router.put('/:id',[
