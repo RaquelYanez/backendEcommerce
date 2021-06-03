@@ -15,7 +15,7 @@ async function execute(req,res){
             name,
             lastName,
             email,
-            password:' esta password esta almacenada en google ',
+            password:'1234a_A',
             rol:'USER_ROLE',
             googleEmail: true
         });

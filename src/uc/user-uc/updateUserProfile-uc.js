@@ -9,6 +9,7 @@ async function execute( id,name, lastName,password,email){
         user.lastName = lastName || user.lastName
         if(user.googleEmail === false){
             user.email = email || user.email
+            user.password = "1234a_A"
         }
         if(password){
             user.password = password
@@ -28,14 +29,14 @@ async function execute( id,name, lastName,password,email){
       })
     await transporter.sendMail({
         from: 'Updated Profile - Ecommerce-rj" <jositoRaquelTfc@gmail.com>',
-        to: user.email, 
+        to: userUpdated.email, 
         subject: "Updated Profile ✔",
-        text: `Hola, ${user.name}, estos son tus datos actuales:
+        text: `Hola, ${userUpdated.name}, estos son tus datos actuales:
 
-        Nombre: ${user.name},
-        Apellido: ${user.lastName},
-        Email: ${user.email}.
-    Recuerda que tienes un rol de ${user.rol}
+        Nombre: ${userUpdated.name},
+        Apellido: ${userUpdated.lastName},
+        Email: ${userUpdated.email}.
+   
     Att.JRSports` 
     })
     return userUpdated

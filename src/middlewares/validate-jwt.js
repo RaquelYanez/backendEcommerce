@@ -7,7 +7,7 @@ const validateJWT = async( req, res, next ) => {
     const token =  req.header('Authorization');
     if( !token){
         //401 sin autorizacion
-        return res.status(401).json({ msg:'Peticion sin token'});
+        return res.status(401).json({ msg:'Peticion con token caducado'});
     }
 
     try {
@@ -23,7 +23,7 @@ const validateJWT = async( req, res, next ) => {
         req.user = user;
         next();
     } catch (err) {
-        res.status(401).json({ msg:'El token no es  válido',err})
+        res.status(401).json({ msg:'El token no es  válido o ha caducado',err})
     }
 
 }
