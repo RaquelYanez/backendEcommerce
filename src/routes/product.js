@@ -3,14 +3,12 @@ const router = Router();
 const {check } = require('express-validator');
 const {isAdmin,validateInputs, validateJWT,isProductValidator} = require('../middlewares');
 const {getOneProductController,topProductsController,createProductController, updatedProductController,createReviewController,deleteProductController} = require('../controllers')
-//publica
-//router.get('/',getProducts);
 
 router.get('/top',topProductsController);
 
-//publica
 router.get('/:id',[
     check('id','No es un ID de Mongo').isMongoId(),
+    check('id').custom(isProductValidator),
 ],getOneProductController,);
 
 router.post('/',[

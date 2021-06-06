@@ -5,6 +5,11 @@ const {ifEmailExists,userExistsById} = require('../middlewares/dbFunctionsValida
 const {updateUserProfileController,createNewUserController,deleteAcountController} = require('../controllers')
 
 const router = Router();
+const {forgotPassword,createNewPassword} = require('../controllers')
+
+router.put('/forgot-password',forgotPassword)
+router.put('/new-password', createNewPassword)
+
 
 router.post('/', [
     check('name', 'El nombre es obligatorio').not().isEmpty(),
@@ -34,6 +39,9 @@ router.delete('/:id',[
     check('id').custom(userExistsById),
     validateInputs,
 ], deleteAcountController)
+
+
+
 
 
 module.exports = router;

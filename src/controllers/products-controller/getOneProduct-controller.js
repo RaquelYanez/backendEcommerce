@@ -7,9 +7,7 @@ async function execute(req,res){
     const {id} = req.params
      try {
         const product = await fetchOne(id);
-        if(product){
-          res.status(200).json(product) 
-        }  
+        res.status(200).json(product)  
     } catch (err) {
         res.status(404).json({msg:`Producto con id: ${id} no encontrado`})  
     }

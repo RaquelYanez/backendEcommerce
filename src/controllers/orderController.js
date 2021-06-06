@@ -14,21 +14,21 @@ const addOrderProducts =  async (req,res)=>{
     const userId = req.user._id
     try {
        if(orderProducts && orderProducts.length <= 0){
-           res.status(400).json({msg:'El pedido esta vacio, sin productos dentro'})
-       }
+            res.status(400).json({msg:'El pedido esta vacio, sin productos dentro'})
+       }else{
        const order = await new Order({
         user: userId,
-        orderProducts,
-        shippingAddress,
-        paymentMethod,
-        shippingPrice,
-        totalPrice,
+        orderProducts, //orderProducts[qty:{numeroProductosStock}, product:{idProducto}]
+        shippingAddress, // shippingAddress:{address,crity,cp,country}
+        paymentMethod, //paymentMethod:{ type: String(metalico o paypal )}
+        shippingPrice,//yo lo puse inicializado a 0 por ahora no se si quieres ni lo movemos
+        totalPrice,//precio total
        });
        const newOrder = await order.save();
        res.status(200).json({msg:`Pedido realizado con exito' ${newOrder._id}`});
-
+    }
     } catch (error) {
-        res.status(500).json({msg:' Error en la creacion del pedido'})  
+       res.status(500).json({msg:' Error en la creacion del pedido'})  
     }
 }
 

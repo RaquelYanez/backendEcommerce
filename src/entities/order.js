@@ -62,9 +62,7 @@ const OrderSchema = Schema({
     },
     deliveredDate: {
         type: Date,
-    }
-    
-    /*,
+    },
     //PARTE DE PRUEBAS
     payStatus :{
         id: {
@@ -77,7 +75,6 @@ const OrderSchema = Schema({
             type: String,
             },   
     }
-  */
 }); 
 
 
