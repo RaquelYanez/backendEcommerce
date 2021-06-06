@@ -9,13 +9,17 @@ const OrderSchema = Schema({
         ref:'User'
     },
     orderProducts:[
-        {
+        { 
             _id:false,
             qty: { type: Number },
-            product: {
+            productId: {
                 type: Schema.Types.ObjectId,
                 required :true,
                 ref:'Product' },
+            sizeId: {
+                type: Schema.Types.ObjectId,
+                required :true,
+                ref:'Size' },
         }
     ],
     shippingAddress: { 

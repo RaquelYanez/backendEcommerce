@@ -9,7 +9,7 @@ const router = Router();
 //RAQUEL FALTAN LOS CHECK Y PASAR A UC
 router.post('/',[
     validateInputs,
-    validateJWT
+    //validateJWT
 ], addOrderProducts );
 
 router.get('/:id/orderDetail',[ //cambiar orderDetails

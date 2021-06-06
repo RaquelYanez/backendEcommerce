@@ -1,36 +1,68 @@
+const { callbackPromise } = require('nodemailer/lib/shared');
 const Order  = require('../entities/order');
-
+const Product  = require('../entities/product');
 //@desc Crear un nuevo pedido cuando tenemos el carrito, para hacer el pedido
 //@route POST /api/order
 //@acces private
 const addOrderProducts =  async (req,res)=>{
     const { 
-        orderProducts,
+        orderProducts, 
         shippingAddress,
         paymentMethod,
         shippingPrice,
         totalPrice,
     } = req.body
-    const userId = req.user._id
-    try {
+    
+   // const userId = req.user._id
+   // try {
        if(orderProducts && orderProducts.length <= 0){
             res.status(400).json({msg:'El pedido esta vacio, sin productos dentro'})
        }else{
        const order = await new Order({
-        user: userId,
-        orderProducts, //orderProducts[qty:{numeroProductosStock}, product:{idProducto}]
-        shippingAddress, // shippingAddress:{address,crity,cp,country}
-        paymentMethod, //paymentMethod:{ type: String(metalico o paypal )}
-        shippingPrice,//yo lo puse inicializado a 0 por ahora no se si quieres ni lo movemos
-        totalPrice,//precio total
+       // user: userId,
+        user:"60aa64884a148d09160bbcd0",
+        orderProducts, 
+        shippingAddress, 
+        paymentMethod, 
+        shippingPrice,
+        totalPrice,
        });
-       const newOrder = await order.save();
-       res.status(200).json({msg:`Pedido realizado con exito' ${newOrder._id}`});
+
+       const cantBuy = [];
+       const isOrderP = await Promise.all(
+        orderProducts.map(async (product) => { 
+            const productData = await Product.find({$and:[{_id:product.productId}]})
+            productData.map(async (item) => {   
+                console.log('productoName',item.name)
+                item.sizeProduct.map(async(sizes)=>{
+                    if(sizes.size == product.sizeId){ //por los campos del id no pilla sino
+                        //console.log('tallaSTOCK',sizes.size)
+                            if(!(sizes.stock <= product.stock)){
+                                cantBuy.push(item.name);
+                            }
+                    }
+                })
+            })
+        }))
+        if(cantBuy.length === 0){
+            res.status(200).json({msg:`Pedido realizado con exito `});
+        }else{
+            res.status(400).json({msg:'Hay productos sin stock suficiente' });
+            //res.status(400).json({msg:'Hay productos sin stock suficiente',cantBuy });
+        }
+        const newOrder = await order.save();
+       
     }
-    } catch (error) {
-       res.status(500).json({msg:' Error en la creacion del pedido'})  
-    }
+  //  } catch (error) {
+    //   res.status(500).json({msg:' Error en la creacion del pedido'})  
+    //}
 }
+
+
+
+
+
+
 
 //@desc Buscar un pedido en concreto por id el usuario puede ver sus detalles de pedido
 //@route GET /api/order/:id
