@@ -8,7 +8,7 @@ const createToken  = (userId) => {
         const payload = { userId };
         const secretOrPrivateKey = process.env.SECRET_TOKEN
       jwt.sign( payload, secretOrPrivateKey, { 
-            expiresIn: '1h'
+            expiresIn: '5h'
         }, (err, token) =>{ //callback
             if(err){
                 console.log(err)
