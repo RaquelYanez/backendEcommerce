@@ -26,7 +26,8 @@ const updateOrderToDeliveredController = require('../controllers/admin-controlle
 const getOneOrderController = require('../controllers/auth-userController/order-controller/getOrderDetails-controller')
 const deleteProductController = require('../controllers/admin-controller/product-controller/deleteOneProduct-controller')
 const addOrderProductsController = require('../controllers/auth-userController/order-controller/addOrderProducts-controller')
-
+const getUsersOrdersController = require('../controllers/admin-controller/orders-controller/getpaidOrders-controller')
+const getOneSizeController = require('../controllers/admin-controller/size-controller/getOneSize-controller')
 
 const forgotPassword = require('../controllers/auth-userController/forgotPassword-controller')
 const createNewPassword =require('../controllers/auth-userController/newPassword-controller')
@@ -60,8 +61,8 @@ module.exports ={
     updateOrderToDeliveredController,
     updateStatePaidTrueController,
     googleLoginController,
-
-
+    getUsersOrdersController,
+    getOneSizeController,
 
     forgotPassword,
     createNewPassword,

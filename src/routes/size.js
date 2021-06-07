@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
 const {isAdmin,validateInputs, validateJWT,sizeValidator} = require('../middlewares');
-const {getSizesController,addSizeController} = require('../controllers')
+const {getSizesController,addSizeController,getOneSizeController} = require('../controllers')
 
 const router = Router();
 
@@ -17,5 +17,10 @@ router.get('/',[
     validateJWT,
     isAdmin,
 ], getSizesController)
+
+router.get('/:id',[
+    //validateJWT,
+], getOneSizeController)
+
 
 module.exports = router;

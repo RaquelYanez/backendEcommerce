@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
-const {updateStatePaid} = require('../controllers/orderController');
 const {validateInputs,validateJWT} = require('../middlewares');
-const {addOrderProductsController, getAllUserOrdersController,updateOrderToDeliveredController,getOneOrderController, updateStatePaidTrueController,} = require('../controllers')
-const {isOrderValidator,isAdmin} = require('../middlewares')
+const {addOrderProductsController, getAllUserOrdersController,updateOrderToDeliveredController,
+    getOneOrderController, getUsersOrdersController,updateStatePaidTrueController,} = require('../controllers')
+const {isOrderValidator,isAdmin} = require('../middlewares') 
 const router = Router();
 
 router.post('/',[
@@ -22,7 +22,7 @@ router.put('/:id/ispaid',[
     check('id','No es un ID de Mongo').isMongoId(),
     check('id').custom(isOrderValidator),
     validateInputs
-], updateStatePaid);
+], updateStatePaidTrueController);
 
 router.put('/:id/delivered',[ //cambiar a delivered
     validateJWT,
@@ -36,5 +36,11 @@ router.get('/user',[
     validateJWT,
     validateInputs
 ],getAllUserOrdersController)
+
+router.get('/admin',[
+    validateJWT,
+    isAdmin,
+    validateInputs
+],getUsersOrdersController)
 
 module.exports = router;

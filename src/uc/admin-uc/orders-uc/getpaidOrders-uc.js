@@ -1,7 +1,7 @@
 const Order = require('../../../entities/order');
 
-async function execute(id){
-    const orders = await Order.find({user:id})
+async function execute(){
+    const orders = await Order.find({isPaid:true})
         .populate('user', 'id name')
         .populate('orderProducts.product', '_id name image price sizeProduct category brand')
         return orders

@@ -5,7 +5,7 @@ const updateUserProfile = require('./user-uc/updateUserProfile-uc');
 const newUsersignUp = require('./user-uc/singUp-uc');
 const deleteAcount = require('./user-uc/deleteUserAcount-uc');
 const fetchOne = require('./products-uc/getOneProduct-uc');
-
+const getOneSize = require('./admin-uc/size-uc/getOneSize-uc')
 const getTopProducts = require('./products-uc/getTopProducts-uc');
 const filterByBrand = require('./search-products-uc/getProductsByCategory&Brand-uc');
 const filterByName = require('./search-products-uc/getProductsByCategory&Name-uc');
@@ -25,6 +25,7 @@ const updateStatePaidTrue = require('./user-uc/order-uc/updateToPaid-uc')
 const updateOrderToDelivered = require('./admin-uc/orders-uc/accept-order-uc')
 const deleteProduct = require('./admin-uc/product-uc/deleteOneProduct-uc')
 const getOneOrder = require('./user-uc/order-uc/getOrderDetails-uc')
+const getUsersOrders = require('./admin-uc/orders-uc/getpaidOrders-uc')
 
 module.exports = {
     addBrand,
@@ -50,6 +51,8 @@ module.exports = {
     updateProduct,
     newUsersignUp,
     fetchOne,
+    getUsersOrders,
+    getOneSize,
 
     updateOrderToDelivered,
     updateStatePaidTrue,
