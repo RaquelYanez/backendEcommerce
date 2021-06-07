@@ -13,13 +13,13 @@ const addOrderProducts =  async (req,res)=>{
         totalPrice,
     } = req.body
     
-   // const userId = req.user._id
-   // try {
+    const userId = req.user._id
+    try {
        if(orderProducts && orderProducts.length <= 0){
             res.status(400).json({msg:'El pedido esta vacio, sin productos dentro'})
        }else{
        const order = await new Order({
-       // user: userId,
+        user: userId,
         user:"60aa64884a148d09160bbcd0",
         orderProducts, 
         shippingAddress, 
@@ -33,29 +33,35 @@ const addOrderProducts =  async (req,res)=>{
         orderProducts.map(async (product) => { 
             const productData = await Product.find({$and:[{_id:product.productId}]})
             productData.map(async (item) => {   
-                console.log('productoName',item.name)
                 item.sizeProduct.map(async(sizes)=>{
-                    if(sizes.size == product.sizeId){ //por los campos del id no pilla sino
-                        //console.log('tallaSTOCK',sizes.size)
-                            if(!(sizes.stock <= product.stock)){
-                                cantBuy.push(item.name);
-                            }
+                    if(sizes.size == product.sizeId){ 
+                        //por los campos del _id de mongo que no los considera == 
+                        //al meterlos por postam piensa que es un string no un _id
+                        if(sizes.stock < product.qty){
+                            cantBuy.push(item.name);
+                        }
+                        const newStock = sizes.stock-product.qty 
+                        await Product.findOneAndUpdate({$and:[{_id:product.productId},{sizeProduct:item.sizeProduct}]})
+                        if(sizes.size == product.sizeId){
+                            sizes.stock = newStock
+                            //console.log('Stock',sizes.size,'es', sizes.stock, )
+                            await item.save()
+                        }            
                     }
                 })
             })
         }))
         if(cantBuy.length === 0){
+            await order.save();
             res.status(200).json({msg:`Pedido realizado con exito `});
         }else{
             res.status(400).json({msg:'Hay productos sin stock suficiente' });
             //res.status(400).json({msg:'Hay productos sin stock suficiente',cantBuy });
         }
-        const newOrder = await order.save();
-       
     }
-  //  } catch (error) {
-    //   res.status(500).json({msg:' Error en la creacion del pedido'})  
-    //}
+    } catch (error) {
+       res.status(500).json({msg:' Error en la creacion del pedido'})  
+    }
 }
 
 
@@ -113,24 +119,4 @@ const updateStatePaid =  async (req,res)=>{
     }
 }
 
-/*
-
-//@desc Buscar todos los pedidos de un usuario
-//@route GET /api/order/orders
-//@acces private
-const getOrders =  async (req,res)=>{
-    const {id} = req.params
-    try { //aqui si separamos LOS DATOS DEL ENVIO TENGO QUE HACER UN POPULATE
-       const orders = await Order.find({user:id})
-            .populate('user', 'name email')
-            .populate('orderProducts.product', 'name')
-            .select('-user');
-    
-    res.json(orders);
-
-    } catch (error) {
-        res.status(404).json({msg:' Error en la busqueda del pedido'})  
-    }
-}
-*/
 module.exports = {addOrderProducts,getOrderProductsById,updateStatePaid}

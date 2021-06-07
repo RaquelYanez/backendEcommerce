@@ -1,16 +1,15 @@
 const { Router } = require('express');
 const {check } = require('express-validator');
-const {addOrderProducts,updateStatePaid} = require('../controllers/orderController');
+const {updateStatePaid} = require('../controllers/orderController');
 const {validateInputs,validateJWT} = require('../middlewares');
-const { getAllUserOrdersController,updateOrderToDeliveredController,getOneOrderController, updateStatePaidTrueController,} = require('../controllers')
+const {addOrderProductsController, getAllUserOrdersController,updateOrderToDeliveredController,getOneOrderController, updateStatePaidTrueController,} = require('../controllers')
 const {isOrderValidator,isAdmin} = require('../middlewares')
 const router = Router();
 
-//RAQUEL FALTAN LOS CHECK Y PASAR A UC
 router.post('/',[
     validateInputs,
-    //validateJWT
-], addOrderProducts );
+   // validateJWT
+], addOrderProductsController );
 
 router.get('/:id/orderDetail',[ //cambiar orderDetails
     validateJWT,
