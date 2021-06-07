@@ -8,7 +8,7 @@ const router = Router();
 
 router.post('/',[
     validateInputs,
-   // validateJWT
+    validateJWT
 ], addOrderProductsController );
 
 router.get('/:id/orderDetail',[ //cambiar orderDetails
