@@ -12,7 +12,7 @@ console.log(token, newPassword)
     const user = await User.findOne({email})
     console.log('useremail', user)
     user.password = newPassword
-    console.log(user.password)
+   // console.log(user.password)
     const salt = bcryptjs.genSaltSync(12);
     user.password = bcryptjs.hashSync(newPassword, salt);
  

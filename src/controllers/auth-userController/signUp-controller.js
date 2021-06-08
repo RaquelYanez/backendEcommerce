@@ -9,7 +9,7 @@ async function execute(req,res){
     const {name, lastName, email, password, rol} = req.body;
     try{
         const user = await newUsersignUp(name, lastName, email, password, rol)
-       //"manuelat120@gmail.com"
+      
         const token = await createToken(user.id);
         res.status(200).json({msg:'Se ha creado el usuario correctamente.',user,token})
     }catch(err) {

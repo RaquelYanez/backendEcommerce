@@ -11,10 +11,11 @@ async function execute(req,res){
         shippingAddress,
         shippingPrice,
         totalPrice,
+        email,
+        userId,
+        name,
     } = req.body
-    
-    const userId = req.user._id
-    const {email,name} = req.user
+   
  try {
        if(orderProducts && orderProducts.length <= 0){
             res.status(400).json({msg:'El pedido esta vacio, sin productos dentro'})
