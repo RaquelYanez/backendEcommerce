@@ -26,6 +26,7 @@ const updateOrderToDelivered = require('./admin-uc/orders-uc/accept-order-uc')
 const deleteProduct = require('./admin-uc/product-uc/deleteOneProduct-uc')
 const getOneOrder = require('./user-uc/order-uc/getOrderDetails-uc')
 const getUsersOrders = require('./admin-uc/orders-uc/getpaidOrders-uc')
+const paidWithMoney = require('./user-uc/order-uc/updateToPaidMetalic-uc')
 
 module.exports = {
     addBrand,
@@ -53,7 +54,8 @@ module.exports = {
     fetchOne,
     getUsersOrders,
     getOneSize,
-
+    paidWithMoney,
+    
     updateOrderToDelivered,
     updateStatePaidTrue,
 }

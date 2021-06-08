@@ -28,6 +28,7 @@ const deleteProductController = require('../controllers/admin-controller/product
 const addOrderProductsController = require('../controllers/auth-userController/order-controller/addOrderProducts-controller')
 const getUsersOrdersController = require('../controllers/admin-controller/orders-controller/getpaidOrders-controller')
 const getOneSizeController = require('../controllers/admin-controller/size-controller/getOneSize-controller')
+const paidWithMoneyController = require('../controllers/auth-userController/order-controller/updateToPaidMetalic-controller')
 
 const forgotPassword = require('../controllers/auth-userController/forgotPassword-controller')
 const createNewPassword =require('../controllers/auth-userController/newPassword-controller')
@@ -63,6 +64,7 @@ module.exports ={
     googleLoginController,
     getUsersOrdersController,
     getOneSizeController,
+    paidWithMoneyController,
 
     forgotPassword,
     createNewPassword,

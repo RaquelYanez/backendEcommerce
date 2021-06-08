@@ -13,8 +13,8 @@ async function execute(id){
             emailPaypal:req.body.payer.emailPaypal
             }
         } 
-        const updated = await order.save();
-        return updated
+        const orderIsPaid = await order.save();
+        return orderIsPaid
 }
 
 module.exports = execute
