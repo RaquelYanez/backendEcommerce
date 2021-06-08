@@ -52,6 +52,22 @@ async function execute(req,res){
             })
         }))
         if(cantBuy.length === 0){
+            const isOrderP = await Promise.all(
+                orderProducts.map(async (product) => { 
+                    const productData = await Product.find({$and:[{_id:product.productId}]})
+                    productData.map(async (item) => {   
+                        item.sizeProduct.map(async(sizes)=>{
+                            if(sizes.size == product.sizeId){ 
+                                const newStock = sizes.stock-product.qty 
+                                await Product.findOneAndUpdate({$and:[{_id:product.productId},{sizeProduct:item.sizeProduct}]})
+                                if(sizes.size == product.sizeId){
+                                    sizes.stock = newStock
+                                    await item.save()
+                                }            
+                            }
+                        })
+                    })
+                }))
             await order.save();
 
             const transporter = nodemailer.createTransport({
