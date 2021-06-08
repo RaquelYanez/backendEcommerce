@@ -39,13 +39,6 @@ async function execute(req,res){
                         //al meterlos por postam piensa que es un string no un _id
                         if(sizes.stock < product.qty){
                             cantBuy.push(item.name);
-                        }
-                        const newStock = sizes.stock-product.qty 
-                        await Product.findOneAndUpdate({$and:[{_id:product.productId},{sizeProduct:item.sizeProduct}]})
-                        if(sizes.size == product.sizeId){
-                            sizes.stock = newStock
-                            //console.log('Stock',sizes.size,'es', sizes.stock, )
-                            await item.save()
                         }            
                     }
                 })
