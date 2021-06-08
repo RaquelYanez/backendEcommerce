@@ -53,6 +53,7 @@ async function execute(req,res){
         }))
         if(cantBuy.length === 0){
             await order.save();
+
             const transporter = nodemailer.createTransport({
                 host: "smtp.gmail.com",
                 port: 465,
@@ -69,7 +70,9 @@ async function execute(req,res){
                 text: `Hi,${name}, you will receive the order: ${order.id} in the next few days!
 
             Att.JRSports`
-            })           
+
+            })      
+            
             res.status(200).json({msg:`Pedido realizado con exito `});
         }else{
             res.status(400).json({msg:'Hay productos sin stock suficiente' });

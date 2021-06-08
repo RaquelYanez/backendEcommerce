@@ -5,9 +5,7 @@ const {paidWithMoney} = require('../../../uc')
 //@acces private
 async function execute(req,res){
     const {id} = req.params
-    const idUser = req.user.id
-    const userName = req.user.name
-    const {email} = req.user
+    const {idUser, userName, email} = req.body
     try {
         const orderIsPaid = await paidWithMoney(id,idUser, email,userName)
         res.status(201).json(orderIsPaid);

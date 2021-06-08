@@ -39,7 +39,6 @@ const OrderSchema = Schema({
     },
     paymentMethod: { 
         type: String,
-        required: true
     },
     shippingPrice: {
         type: Number,
