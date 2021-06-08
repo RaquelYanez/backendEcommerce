@@ -9,7 +9,6 @@ async function execute(req,res){
     const { 
         orderProducts, 
         shippingAddress,
-        paymentMethod,
         shippingPrice,
         totalPrice,
     } = req.body
@@ -23,8 +22,7 @@ async function execute(req,res){
         const order = await new Order({
         user: userId,
         orderProducts, 
-        shippingAddress, 
-        paymentMethod, 
+        shippingAddress,  
         shippingPrice,
         totalPrice,
        });

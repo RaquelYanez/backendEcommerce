@@ -31,7 +31,7 @@ router.put('/:id/ispaid/money',[
     validateInputs
 ], paidWithMoneyController );
 
-router.put('/:id/delivered',[ //cambiar a delivered
+router.put('/:id/delivered',[ 
     validateJWT,
     isAdmin,
     check('id','No es un ID de Mongo').isMongoId(),
