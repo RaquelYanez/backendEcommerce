@@ -10,7 +10,7 @@ async function execute(req,res){
         const orderIsPaid = await updateStatePaidTrue(id,idUser, userName, email)
         res.status(200).json({msg:'Todo okey',orderIsPaid});
     } catch (error) {
-        res.status(404).json({msg:' Error en la busqueda del pedido'})  
+        res.status(500).json({msg:' Error en la busqueda del pedido'})  
     }
 }
 

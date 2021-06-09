@@ -20,7 +20,7 @@ router.get('/:id/orderDetail',[
 router.put('/:id/ispaid',[
     validateJWT,
     check('id','No es un ID de Mongo').isMongoId(),
-    check('id').custom(isOrderValidator),
+  //  check('id').custom(isOrderValidator),
     validateInputs
 ], updateStatePaidTrueController);
 
