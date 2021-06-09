@@ -18,10 +18,10 @@ router.get('/:id/orderDetail',[
 ], getOneOrderController);
 
 router.put('/:id/ispaid',[
-   // validateJWT,
-  //  check('id','No es un ID de Mongo').isMongoId(),
-  //  check('id').custom(isOrderValidator),
-  //  validateInputs
+    validateJWT,
+    check('id','No es un ID de Mongo').isMongoId(),
+    check('id').custom(isOrderValidator),
+    validateInputs
 ], updateStatePaidTrueController);
 
 router.put('/:id/ispaid/money',[
