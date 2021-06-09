@@ -1,4 +1,5 @@
 const Order = require('../../../entities/order');
+const nodemailer = require('nodemailer');
 
 async function execute(id,idUser, userName, email){
     const order = await Order.findById(id)
@@ -9,7 +10,7 @@ async function execute(id,idUser, userName, email){
         order.paidDate = Date.now();
         order.payStatus = { 
             id: idUser,
-            status:req.body.status, 
+            status: req.body.status, 
             emailPaypal:req.body.emailPaypal
             }
         } 
