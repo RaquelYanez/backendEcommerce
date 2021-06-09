@@ -5,10 +5,11 @@ const {updateStatePaidTrue} = require('../../../uc')
 //@acces private
 async function execute(req,res){
     const {id} = req.params
-    const {idUser, userName, email} = req.body
+    const {idUser, userName, email,status,emailPaypal} = req.body
+
 
     try {
-        const orderIsPaid = await updateStatePaidTrue(id,idUser, userName, email)
+        const orderIsPaid = await updateStatePaidTrue(id,idUser, userName, email,status,emailPaypal)
         res.status(200).json({msg:'Todo okey',orderIsPaid});
     } catch (error) {
     res.status(500).json({msg:' Error en la busqueda del pedido'})  
