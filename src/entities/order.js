@@ -73,7 +73,7 @@ const OrderSchema = Schema({
             },
         status:{
             type: String,
-            default: "Esta pagado, pedido en preparacion",
+            default: "Pedido pendiente de pago",
             }, //si es ok que ponga COMPLETADO o algo asi
         emailPaypal:{
             type: String,

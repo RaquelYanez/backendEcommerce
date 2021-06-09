@@ -7,7 +7,6 @@ const collectionBD = [
     'categories'
 ]
 
-
 //@desc filtrar por categoria y marca y l apalabra clave
 //@route GET /:collection/:keyword/:filter
 //@acces public
