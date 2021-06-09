@@ -10,7 +10,7 @@ async function execute(id,idUser, userName, email){
         order.payStatus = { 
             id: idUser,
             status:req.body.status, 
-            emailPaypal:req.body.payer.emailPaypal
+            emailPaypal:req.body.emailPaypal
             }
         } 
         const orderIsPaid = await order.save();
