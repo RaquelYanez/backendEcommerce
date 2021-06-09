@@ -27,8 +27,8 @@ async function execute(id,idUser, userName, email){
         await transporter.sendMail({
             from: 'Order placed successfully! - Ecommerce-rj <jositoRaquelTfc@gmail.com>',
             to: email, 
-            subject: `order ${order.id}`,
-            text: `Hi,${userName}, you will receive the order: ${order.id} in the next few days!
+            subject: `order ${id}`,
+            text: `Hi,${userName}, you will receive the order: ${id} in the next few days!
 
         Att.JRSports`
 

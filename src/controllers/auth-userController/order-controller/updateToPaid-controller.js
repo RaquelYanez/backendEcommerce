@@ -8,7 +8,7 @@ async function execute(req,res){
     const {idUser, userName, email} = req.body
     try {
         const orderIsPaid = await updateStatePaidTrue(id,idUser, userName, email)
-        res.status(201).json(orderIsPaid);
+        res.status(200).json({msg:'Todo okey',orderIsPaid});
     } catch (error) {
         res.status(404).json({msg:' Error en la busqueda del pedido'})  
     }
