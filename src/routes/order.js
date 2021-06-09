@@ -11,7 +11,7 @@ router.post('/',[
     validateJWT
 ], addOrderProductsController );
 
-router.get('/:id/orderDetail',[ //cambiar orderDetails
+router.get('/:id/orderDetail',[ 
     validateJWT,
     check('id','No es un ID de Mongo').isMongoId(),
     check('id').custom(isOrderValidator),

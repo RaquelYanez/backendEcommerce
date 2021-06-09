@@ -1,8 +1,8 @@
 const Order = require('../../../entities/order');
 const nodemailer = require('nodemailer');
 
-async function execute(id){
-    const order = await Order.findById(id,idUser, email,userName)
+async function execute(id,idUser, email,userName){
+    const order = await Order.findById(id)
         .populate('user', 'name email')
         .populate('orderProducts.product', 'name');
     
@@ -16,6 +16,7 @@ async function execute(id){
             }
         } 
         const orderIsPaid = await order.save();
+
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 465,
@@ -29,11 +30,12 @@ async function execute(id){
             from: 'Ecommerce-rj <jositoRaquelTfc@gmail.com>',
             to: email, 
             subject: "Muchas gracias por tu pedido",
-            text: `Hola, ${userName}, Pedido ${order.id} esta en preparacion !
+            text: `Hola, ${userName}, Pedido ${id} esta en preparacion !
       
             Att.JRSports`
             
-            })
+            }) 
+            
         return orderIsPaid
 }
 
