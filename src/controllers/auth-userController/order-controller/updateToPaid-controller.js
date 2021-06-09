@@ -5,8 +5,9 @@ const {updateStatePaidTrue} = require('../../../uc')
 //@acces private
 async function execute(req,res){
     const {id} = req.params
+    const {idUser, userName, email} = req.body
     try {
-        const orderIsPaid = await updateStatePaidTrue(id)
+        const orderIsPaid = await updateStatePaidTrue(id,idUser, userName, email)
         res.status(201).json(orderIsPaid);
     } catch (error) {
         res.status(404).json({msg:' Error en la busqueda del pedido'})  

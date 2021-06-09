@@ -11,9 +11,7 @@ async function execute(req,res){
         shippingAddress,
         shippingPrice,
         totalPrice,
-        email,
         userId,
-        name,
     } = req.body
    
  try {
@@ -37,7 +35,7 @@ async function execute(req,res){
                     if(sizes.size == product.sizeId){ 
                         //por los campos del _id de mongo que no los considera == 
                         //al meterlos por postam piensa que es un string no un _id
-                        if(sizes.stock < product.qty){
+                        if(sizes.stock <= product.qty){
                             cantBuy.push(item.name);
                         }            
                     }
@@ -62,27 +60,9 @@ async function execute(req,res){
                     })
                 }))
             await order.save();
-
-            const transporter = nodemailer.createTransport({
-                host: "smtp.gmail.com",
-                port: 465,
-                secure: true, 
-                auth: { 
-                  user: 'jositoRaquelTfc@gmail.com',
-                  pass:'mnpcrkceaakbutrm',
-                }
-              })
-            await transporter.sendMail({
-                from: 'Order placed successfully! - Ecommerce-rj <jositoRaquelTfc@gmail.com>',
-                to: email, 
-                subject: `order ${order.id}`,
-                text: `Hi,${name}, you will receive the order: ${order.id} in the next few days!
-
-            Att.JRSports`
-
-            })      
             
-            res.status(200).json({msg:`Pedido realizado con exito `});
+            
+            res.status(200).json({msg:`Pedido en espera de ser pagado`});
         }else{
             res.status(400).json({msg:'Hay productos sin stock suficiente' });
             //res.status(400).json({msg:'Hay productos sin stock suficiente',cantBuy });

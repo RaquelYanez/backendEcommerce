@@ -1,6 +1,6 @@
 const Order = require('../../../entities/order');
 
-async function execute(id){
+async function execute(id,idUser, userName, email){
     const order = await Order.findById(id)
         .populate('user', 'name email')
         .populate('orderProducts.product', 'name');
@@ -8,12 +8,31 @@ async function execute(id){
         order.isPaid = true;
         order.paidDate = Date.now();
         order.payStatus = { 
-            id: req.body.id,
+            id: idUser,
             status:req.body.status, 
             emailPaypal:req.body.payer.emailPaypal
             }
         } 
         const orderIsPaid = await order.save();
+
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true, 
+            auth: { 
+              user: 'jositoRaquelTfc@gmail.com',
+              pass:'mnpcrkceaakbutrm',
+            }
+          })
+        await transporter.sendMail({
+            from: 'Order placed successfully! - Ecommerce-rj <jositoRaquelTfc@gmail.com>',
+            to: email, 
+            subject: `order ${order.id}`,
+            text: `Hi,${userName}, you will receive the order: ${order.id} in the next few days!
+
+        Att.JRSports`
+
+        })      
         return orderIsPaid
 }
 

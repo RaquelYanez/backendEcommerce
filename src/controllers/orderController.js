@@ -1,4 +1,3 @@
-const { callbackPromise } = require('nodemailer/lib/shared');
 const Order  = require('../entities/order');
 
 //@desc Buscar un pedido en concreto por id el usuario puede ver sus detalles de pedido
@@ -19,14 +18,11 @@ const getOrderProductsById =  async (req,res)=>{
     }
 }
 
-//@desc Actualizar el pedido para cuando "pagamos"
+//@desc Actualizar el pedido para cuando "pagamos" PAYPAL
 //@route GET /api/order/:id/ispaid
 //@acces private
 const updateStatePaid =  async (req,res)=>{
     const {id} = req.params
-
-    //con el populate obtenemos el usuario y por otro lado el nombre 
-    //y email que es lo que queremos que ser vea
     try {
        const order = await Order.findById(id)
         .populate('user', 'name email')
@@ -50,4 +46,4 @@ const updateStatePaid =  async (req,res)=>{
     }
 }
 
-module.exports = {addOrderProducts,getOrderProductsById,updateStatePaid}
+module.exports = {getOrderProductsById,updateStatePaid}
