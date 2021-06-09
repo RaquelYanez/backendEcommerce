@@ -27,7 +27,7 @@ router.put('/:id/ispaid',[
 router.put('/:id/ispaid/money',[
     validateJWT,
     check('id','No es un ID de Mongo').isMongoId(),
-   // check('id').custom(isOrderValidator),
+    check('id').custom(isOrderValidator),
     validateInputs
 ], paidWithMoneyController );
 
