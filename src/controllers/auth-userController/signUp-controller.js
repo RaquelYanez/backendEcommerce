@@ -17,5 +17,4 @@ async function execute(req,res){
         res.status(400).send({msg:'No se ha podido crear al usuario.'})
     }
     } 
-
     module.exports = execute 

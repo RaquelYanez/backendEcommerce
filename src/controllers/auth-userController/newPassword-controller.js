@@ -10,12 +10,9 @@ console.log(token, newPassword)
         return res.status(400).json({message:'necesitamos el nombre'})
     }
     const user = await User.findOne({email})
-    console.log('useremail', user)
     user.password = newPassword
-   // console.log(user.password)
     const salt = bcryptjs.genSaltSync(12);
     user.password = bcryptjs.hashSync(newPassword, salt);
- 
     await user.save()
     const queteden = await User.findOne({email})
     console.log('datos supuestamente guardados',queteden)

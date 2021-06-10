@@ -26,8 +26,8 @@ router.post('/',[
 ],createProductController);
 
 router.put('/:id',[
-    validateJWT,
-    isAdmin,
+  //  validateJWT,
+   // isAdmin,
     check('id','No es un ID de Mongo').isMongoId(),
     validateInputs,
 ],updatedProductController);

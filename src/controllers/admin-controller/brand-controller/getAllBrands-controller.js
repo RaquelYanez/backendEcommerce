@@ -4,8 +4,8 @@ const { showBrands } = require('../../../uc');
 //@route GET /api/brand
 //@acces private 
 async function execute(req,res){
-const brands =  await showBrands()
-res.status(200).json({brands})
+    const brands =  await showBrands()
+    res.status(200).json({brands})
 };
 
 module.exports = execute 

@@ -12,7 +12,7 @@ async function execute(req,res){
             sizeProduct,descriptionShort,category, id)
          res.status(201).json(updatedProduct)
     } catch (error) {
-        res.status(204).json({msg:`No se ha podido actualizar el producto ${id}`})  
+        res.status(500).json({msg:`No se ha podido actualizar el producto ${id}`})  
     }
 };
 

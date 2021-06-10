@@ -1,4 +1,3 @@
-const { compareSync } = require('bcryptjs');
 const {Brand,Category,Product } = require('../entities')
 
 const collectionBD = [
